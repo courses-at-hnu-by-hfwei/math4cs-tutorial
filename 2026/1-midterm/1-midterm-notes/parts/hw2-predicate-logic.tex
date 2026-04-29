@@ -12,18 +12,14 @@
 \end{problem}
 
 \begin{solution}
-  \begin{intention}
-    这是一个关于公式构造方式的元命题, 最自然的方法是对公式作结构归纳; 唯一真正需要分情况的是量词情形 $\forall/\exists y\; \psi$。
-  \end{intention}
-
-  证明更强命题:
+  证明命题:
   \[
     P(\alpha): \text{对任意变元 } x,\; x \text{ 都可以在 } \alpha \text{ 中无冲突地替换 } x.
   \]
 
   对公式 $\alpha$ 作结构归纳。
 
-  \textbf{基例.}
+  \textbf{基础情况.}
   若 $\alpha$ 是原子公式, 则按 ``无冲突替换'' 的定义,
   原子公式情形无附加条件, 故对任意变元 $x$,
   $x$ 都可以在 $\alpha$ 中无冲突地替换 $x$。
@@ -60,17 +56,8 @@
           $x$ 可以在 $\forall/\exists y\; \psi$ 中无冲突地替换 $x$。
       \end{enumerate}
   \end{enumerate}
-
-  综上, $P(\alpha)$ 对任意公式 $\alpha$ 都成立。故对于任意公式 $\alpha$ 与任意变元 $x$,
-  $x$ 都可以在 $\alpha$ 中无冲突地替换自己。
-
-  \begin{remark}
-    \textbf{重点.} 这是对公式构造规则的结构归纳, 不是对自由出现次数作归纳。\
-    \textbf{难点.} 量词情形必须区分 $x = y$ 与 $x \neq y$。\
-    \textbf{易错点.} 当 $x = y$ 时, 不能套用条件 (b); 此时应直接使用 ``$x$ 不自由出现'' 的条件 (a)。
-  \end{remark}
+  综上, $P(\alpha)$ 对任意公式 $\alpha$ 都成立。
 \end{solution}
-
 %%%%%%%%%%%%%%%
 
 \begin{problem}[一阶谓词逻辑: 前束范式]
@@ -111,10 +98,6 @@
 \end{problem}
 
 \begin{solution}
-  \begin{intention}
-    先对右侧的束缚变元做一次换名, 避免与左侧的 $\forall x$ 冲突; 然后按规则 R5、R6、R4 逐步把量词前移。
-  \end{intention}
-
   先对右侧量词中的束缚变元换名:
   \[
     \forall x\; \exists y\; P(x, y) \to \exists x\; Q(x)
@@ -137,16 +120,4 @@
   \[
     \boxed{\exists x\; \forall y\; \exists z\; \big(P(x, y) \to Q(z)\big)}.
   \]
-
-  其中矩阵
-  \[
-    P(x, y) \to Q(z)
-  \]
-  中已无量词, 故上式确为前束范式。
-
-  \begin{remark}
-    \textbf{重点.} 第一行先做束缚变元换名是必要的标准化步骤。\
-    \textbf{难点.} 每一步都要核对规则附带的 ``不自由出现'' 条件。\
-    \textbf{易错点.} 若不先把右侧 $\exists x\; Q(x)$ 改写为 $\exists z\; Q(z)$, 后续就无法合法地继续把右侧存在量词前移。
-  \end{remark}
 \end{solution}

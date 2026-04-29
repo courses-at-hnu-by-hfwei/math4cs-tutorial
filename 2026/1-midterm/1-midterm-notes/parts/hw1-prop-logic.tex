@@ -4,8 +4,6 @@
 
 \begin{problem}[命题逻辑的自然推理系统]
   请使用自然推理规则证明以下结论:
-
-  {提示: 你可以使用 \LaTeX{} package `logicproof' 书写漂亮的证明。}
   \begin{enumerate}[(1)]
     \setcounter{enumi}{4}
     \item
@@ -15,94 +13,48 @@
   \end{enumerate}
 \end{problem}
 
-\begin{solution}
-  \begin{enumerate}[(1)]
-    \setcounter{enumi}{4}
-    \item
-      \begin{intention}
-        这是 A2 公理式; 依次假设
-        $\alpha \to (\beta \to \gamma)$,
-        $\alpha \to \beta$ 与 $\alpha$, 然后连做三次 MP 型推理。
-      \end{intention}
-
-      \begin{proof}
-        \begin{logicproof}{3}
-          \begin{subproof}
-            \alpha \to (\beta \to \gamma) & assumption \\
-            \begin{subproof}
-              \alpha \to \beta & assumption \\
-              \begin{subproof}
-                \alpha & assumption \\
-                \beta \to \gamma & $\to\elim$ 1, 3 \\
-                \beta & $\to\elim$ 2, 3 \\
-                \gamma & $\to\elim$ 4, 5
-              \end{subproof}
-              \alpha \to \gamma & $\to\intro$ 3--6
-            \end{subproof}
-            (\alpha \to \beta) \to (\alpha \to \gamma) & $\to\intro$ 2--7
-          \end{subproof}
-          (\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma)) & $\to\intro$ 1--8
-        \end{logicproof}
-      \end{proof}
-
-      \begin{remark}
-        \textbf{重点.} 在最内层假设 $\alpha$ 后, 先推出 $\beta \to \gamma$, 再推出 $\beta$, 最后得到 $\gamma$。
-        \textbf{易错点.} 不要把第 4 行和第 5 行的先后关系写反: 必须先得到 $\beta \to \gamma$, 才能与 $\beta$ 合用。
-      \end{remark}
-
-  \end{enumerate}
-
-\end{solution}
-
+\begin{logicproof}{3}
+	\begin{subproof}
+		\alpha \to (\beta \to \gamma) & assumption \\
+		\begin{subproof}
+			\alpha \to \beta & assumption \\
+			\begin{subproof}
+				\alpha & assumption \\
+				\beta \to \gamma & $\to\elim$ 1, 3 \\
+				\beta & $\to\elim$ 2, 3 \\
+				\gamma & $\to\elim$ 4, 5
+			\end{subproof}
+			\alpha \to \gamma & $\to\intro$ 3--6
+		\end{subproof}
+		(\alpha \to \beta) \to (\alpha \to \gamma) & $\to\intro$ 2--7
+	\end{subproof}
+	(\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma)) & $\to\intro$ 1--8
+\end{logicproof}
 %%%%%%%%%%%%%%%
 
-\begin{problem}[命题逻辑的自然推理系统]
-  请使用自然推理规则证明以下结论:
+\begin{enumerate}[(1)]
+	\setcounter{enumi}{5}
+	\item
+		\[
+			\vdash (\lnot \beta \to \lnot \alpha) \to ((\lnot \beta \to \alpha) \to \beta)
+		\]
+\end{enumerate}
 
-  {提示: 你可以使用 \LaTeX{} package `logicproof' 书写漂亮的证明。}
-  \begin{enumerate}[(1)]
-    \setcounter{enumi}{5}
-    \item
-      \[
-        \vdash (\lnot \beta \to \lnot \alpha) \to ((\lnot \beta \to \alpha) \to \beta)
-      \]
-  \end{enumerate}
-\end{problem}
-
-\begin{solution}
-  \begin{enumerate}[(1)]
-    \setcounter{enumi}{5}
-    \item
-      \begin{intention}
-        先假设两条前提蕴含, 再以 $\lnot\beta$ 为临时假设导出矛盾, 从而得到 $\beta$。
-      \end{intention}
-
-      \begin{proof}
-        \begin{logicproof}{4}
-          \begin{subproof}
-            \lnot\beta \to \lnot\alpha & assumption \\
-            \begin{subproof}
-              \lnot\beta \to \alpha & assumption \\
-              \begin{subproof}
-                \lnot\beta & assumption \\
-                \lnot\alpha & $\to\elim$ 1, 3 \\
-                \alpha & $\to\elim$ 2, 3 \\
-                \bot & $\lnot\elim$ 4, 5
-              \end{subproof}
-              \lnot\lnot\beta & $\lnot\intro$ 3--6 \\
-              \beta & $\lnot\lnot\elim$ 7
-            \end{subproof}
-            (\lnot\beta \to \alpha) \to \beta & $\to\intro$ 2--8
-          \end{subproof}
-          (\lnot\beta \to \lnot\alpha) \to ((\lnot\beta \to \alpha) \to \beta) & $\to\intro$ 1--9
-        \end{logicproof}
-      \end{proof}
-
-      \begin{remark}
-        \textbf{重点.} 在假设 $\lnot\beta$ 下, 两个前提分别给出 $\lnot\alpha$ 与 $\alpha$, 从而得到矛盾。
-        \textbf{难点.} 由矛盾推出的不是直接的 $\beta$, 而是先得到 $\lnot\lnot\beta$, 再消去双重否定。
-        \textbf{易错点.} 第 6 行应由 $\alpha$ 与 $\lnot\alpha$ 得到 $\bot$, 不能直接写成“故 $\beta$”。
-      \end{remark}
-  \end{enumerate}
-
-\end{solution}
+\begin{logicproof}{4}
+	\begin{subproof}
+		\lnot\beta \to \lnot\alpha & assumption \\
+		\begin{subproof}
+			\lnot\beta \to \alpha & assumption \\
+			\begin{subproof}
+				\lnot\beta & assumption \\
+				\lnot\alpha & $\to\elim$ 1, 3 \\
+				\alpha & $\to\elim$ 2, 3 \\
+				\bot & $\lnot\elim$ 4, 5
+			\end{subproof}
+			\lnot\lnot\beta & $\lnot\intro$ 3--6 \\
+			\beta & $\lnot\lnot\elim$ 7
+		\end{subproof}
+		(\lnot\beta \to \alpha) \to \beta & $\to\intro$ 2--8
+	\end{subproof}
+	(\lnot\beta \to \lnot\alpha) \to ((\lnot\beta \to \alpha) \to \beta) & $\to\intro$ 1--9
+\end{logicproof}

@@ -18,80 +18,30 @@
       记为 $\phi$。
       请自行选择论域（全集 Universe）、谓词符号和函数符号, 并请说明它们的含义。
       \begin{solution}
-        \begin{intention}
-          先固定语言, 再把“对每个 $x \in U$ 都存在依赖于 $x$ 的 $\epsilon > 0$”直接翻译成量词次序。
-        \end{intention}
-
-        取单论域
-        \[
-          |\mathcal{M}| = \mathbb{R}^{n} \cup \mathbb{R}_{> 0}.
-        \]
-        取如下谓词符号:
-        \begin{align*}
-          &\mathrm{Pt}(x): x \in \mathbb{R}^{n}, \\
-          &\mathrm{U}(x): x \in U, \\
-          &\mathrm{Pos}(\epsilon): \epsilon > 0, \\
-          &\mathrm{N}(y, x, \epsilon): d(y, x) < \epsilon.
-        \end{align*}
-        不必额外引入函数符号。
-
-        则“$U$ 是开集”可写为
-        \[
+        取单一论域 $|\mathcal{M}|=\mathbb{R}^n$，并在量词中直接使用域限制符号。
+        采用如下更紧凑的表示方法, 不额外引入专门的谓词符号:
+        \
+        \[\
           \phi \triangleq
-          \forall x\, \Bigl(
-            (\mathrm{Pt}(x) \land \mathrm{U}(x)) \to
-            \exists \epsilon\, \bigl(
-              \mathrm{Pos}(\epsilon)
-              \land
-              \forall y\, 
-                ((\mathrm{Pt}(y) \land \mathrm{N}(y, x, \epsilon)) \to \mathrm{U}(y))
-            \bigr)
-          \Bigr).
+          \forall x\in U\;\exists \epsilon\in \mathbb{R}^+\;\forall y\in \mathbb{R}^n\;
+            \bigl(d(y,x)<\epsilon \to y\in U\bigr).
         \]
-
-        \begin{remark}
-          \textbf{重点.} $\exists \epsilon$ 必须放在对应的 $x$ 之后, 因为 $\epsilon$ 依赖于 $x$。
-          \textbf{易错点.} 不能误写成 $\exists \epsilon\, \forall x\, \cdots$; 那表达的是“同一个半径适用于所有 $x$”。
-        \end{remark}
       \end{solution}
     \item 请给出 $\lnot \phi$ 公式。
       \begin{solution}
-        \begin{intention}
-          逐层推进否定号, 把“开集”改写成“存在某个 $x \in U$, 对任意正半径都能找到一个跑出 $U$ 的点”。
-        \end{intention}
-
-        由上题中的 $\phi$,
-        \begin{align*}
-          \lnot \phi
-            &\equiv \exists x\, \Bigl(
-              (\mathrm{Pt}(x) \land \mathrm{U}(x))
-              \land
-              \lnot \exists \epsilon\, \bigl(
-                \mathrm{Pos}(\epsilon)
-                \land
-                \forall y\, ((\mathrm{Pt}(y) \land \mathrm{N}(y, x, \epsilon)) \to \mathrm{U}(y))
-              \bigr)
-            \Bigr) \\
-            &\equiv \exists x\, \Bigl(
-              (\mathrm{Pt}(x) \land \mathrm{U}(x))
-              \land
-              \forall \epsilon\, \Bigl(
-                \mathrm{Pos}(\epsilon) \to
-                \exists y\, 
-                  (\mathrm{Pt}(y) \land \mathrm{N}(y, x, \epsilon) \land \lnot \mathrm{U}(y))
-              \Bigr)
-            \Bigr).
-        \end{align*}
-
-        \begin{remark}
-          \textbf{重点.} 否定 $\forall y(A \to B)$ 时, 先化为
-          $\exists y(A \land \lnot B)$。
-          \textbf{易错点.} 不要把 $\lnot \exists \epsilon$ 误写成 $\exists \epsilon \lnot$; 应为 $\forall \epsilon \lnot$。
-        \end{remark}
+        根据上题采用的域限制量词表示, 对 $\phi$ 取否得到：
+        \[
+          \begin{aligned}
+            \lnot\phi
+            &\equiv \lnot\bigl(\forall x\in U\;\exists \epsilon\in \mathbb{R}^+\;\forall y\in \mathbb{R}^n\;
+              (d(y,x)<\epsilon \to y\in U)\bigr) \\
+            &\equiv \exists x\in U\;\forall \epsilon\in \mathbb{R}^+\;\exists y\in \mathbb{R}^n\;
+              \bigl(d(y,x)<\epsilon \land y\notin U\bigr).
+          \end{aligned}
+        \]
       \end{solution}
   \end{enumerate}
 \end{problem}
-
 %%%%%%%%%%%%%%%
 
 \begin{problem}[一阶谓词逻辑的语法: 替换]
