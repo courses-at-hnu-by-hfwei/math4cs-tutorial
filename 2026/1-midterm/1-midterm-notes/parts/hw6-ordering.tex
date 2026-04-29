@@ -22,160 +22,64 @@
   \end{enumerate}
 \end{problem}
 
+\begin{remark}
+	在精化偏序下, ``更小'' 意味着 ``更细''。因此下确界是公共细化, 上确界是公共粗化。\par
+	上下确界的构造分别对应于 "合并（合并为连通分支）" 与 "细化（取交）" 两种直观操作: 上确界通过在必要时合并块来获得最小的公共粗化,
+	下确界则通过取各划分块的交得到最大的公共细化。两者都可直接从精化关系的定义出发严格推导。
+\end{remark}
+
 \begin{proof}
-  \begin{intention}
-    在精化偏序下, 下确界是 ``把所有划分同时细化'' 的公共细化, 即非空交块; 上确界则是 ``只做必要合并'' 的最细公共粗化, 可由有限链连通生成。
-  \end{intention}
+	\begin{enumerate}[(1)]
+		\item[上确界]\
+			对每个 $\alpha\in S$ 定义其诱导的等价关系
+			\[x\equiv_{\alpha} y \iff \exists A\in\alpha\; (x\in A\land y\in A).
+			\]
+			令
+			\[R\;=\;\bigcup_{\alpha\in S} \equiv_{\alpha},\]
+			并令 $\approx$ 为包含 $R$ 的最小等价关系（即 $R$ 的反身-对称-传递闭包）。记
+			\[P\;=\;X/\approx.
+			\]
 
-  \begin{enumerate}[(1)]
-    \item 对每个 $\alpha \in Pt(X)$, 记其诱导的等价关系为
-      \[
-        x \equiv_{\alpha} y
-        \iff
-        \exists A \in \alpha\; (x \in A \land y \in A).
-      \]
-      在 $X$ 上定义关系 $\approx$:
-      \[
-        x \approx y
-        \iff
-        \exists n \ge 0\; \exists x_0, x_1, \dots, x_n \in X
-      \]
-      使得
-      \[
-        x = x_0,
-        \qquad
-        y = x_n,
-        \qquad
-        \forall i \in \set{1, 2, \dots, n}\; \exists \alpha_i \in S\; x_{i-1} \equiv_{\alpha_i} x_i.
-      \]
+			断言 $P=\sup(S)$. 证明如下。
 
-      这是一个等价关系:
-      \begin{enumerate}[(i)]
-        \item 自反性: 取 $n = 0$。
-        \item 对称性: 反向读一条链即可。
-        \item 传递性: 将两条链首尾拼接即可。
-      \end{enumerate}
-      因而 $X/\approx \in Pt(X)$。
+			(i) $P$ 是上界：任取 $\alpha\in S$, 若 $A\in\alpha$ 且 $x,y\in A$，则 $(x,y)\in R$, 因而 $x\approx y$;
+			故每个 $A\in\alpha$ 完全包含于某个 $\approx$-类， 即 $\alpha\le P$。
 
-      下证
-      \[
-        \sup(S) = X/\approx.
-      \]
+			(ii) $P$ 是最小上界：若 $\beta$ 是任意上界 (即 $\forall\alpha\in S\;\alpha\le\beta$)，
+			则对任意 $\alpha\in S$ 有 $\equiv_{\alpha}\subseteq\equiv_{\beta}$，于是
+			$R\subseteq\equiv_{\beta}$. 因为 $\equiv_{\beta}$ 是等价关系, 它包含 $R$ 的等价闭包, 即
+			$\approx\subseteq\equiv_{\beta}$。因此每个 $\approx$-类都包含于某个 $\beta$-类, 也就是 $P\le\beta$。
 
-      先证 $X/\approx$ 是 $S$ 的上界。任取 $\alpha \in S$ 与 $A \in \alpha$。若 $x, y \in A$, 则
-      \[
-        x \equiv_{\alpha} y,
-      \]
-      故由长度为 $1$ 的链可知 $x \approx y$。于是
-      \[
-        A \subseteq [x]_{\approx}.
-      \]
-      这说明
-      \[
-        \alpha \le X/\approx.
-      \]
-      因而 $X/\approx$ 是上界。
+			由 (i),(ii) 得 $P$ 为最小上界.
 
-      再证其为最小上界。设 $\beta \in Pt(X)$ 是任意上界, 即
-      \[
-        \forall \alpha \in S\; \alpha \le \beta.
-      \]
-      任取 $x \approx y$, 取见证链
-      \[
-        x = x_0, x_1, \dots, x_n = y.
-      \]
-      对每个 $i = 1, \dots, n$, 有某个 $\alpha_i \in S$ 使得
-      \[
-        x_{i-1} \equiv_{\alpha_i} x_i.
-      \]
-      由 $\alpha_i \le \beta$, 得 $x_{i-1}$ 与 $x_i$ 落在 $\beta$ 的同一个块中。块关系具有传递性, 故 $x$ 与 $y$ 落在 $\beta$ 的同一个块中。于是
-      \[
-        [x]_{\approx} \subseteq B
-      \]
-      对某个 $B \in \beta$ 成立, 从而
-      \[
-        X/\approx \le \beta.
-      \]
-      故 $X/\approx$ 是最小上界。
+			\emph{直观说明.} 将元素看作点, 若两点在某个划分中同块则连一条边; 上确界的块即该无向图的连通分支——
+			把在不同划分中被"间接"连接的块合并起来, 只做必要的合并以保证每个原划分的块被包含于某一合并后的块中。
 
-      因而任意 $S \subseteq Pt(X)$ 都有上确界, 且
-      \[
-        \sup(S) = X/\approx,
-      \]
-      其中 $\approx$ 是由所有 $\alpha \in S$ 的同块关系生成的最小等价关系。
+		\item[下确界]\
+			令
+			\[\Pi=\Big\{\;\bigcap_{\alpha\in S}A_{\alpha}\;\Big|\;A_{\alpha}\in\alpha\ \forall\alpha\in S,\ \bigcap_{\alpha\in S}A_{\alpha}\neq\emptyset\;\Big\}.
+			\]
 
-    \item 任意 $S \subseteq Pt(X)$ 的下确界为
-      \[
-        \inf(S)
-        = \set{
-            \bigcap_{\alpha \in S} A_{\alpha}
-            \;\bigg|\;
-            \forall \alpha \in S\; A_{\alpha} \in \alpha,
-            \ \bigcap_{\alpha \in S} A_{\alpha} \neq \emptyset
-          }.
-      \]
+			断言 $\Pi=\inf(S)$. 证明如下。
 
-      记上式右端为 $\Pi$。先说明 $\Pi \in Pt(X)$。
+			(i) $\Pi$ 为划分：对任意 $x\in X$，对每个 $\alpha\in S$ 取包含 $x$ 的块 $A_{\alpha}\in\alpha$，则
+			$x\in\bigcap_{\alpha}A_{\alpha}\in\Pi$，所以 $\Pi$ 覆盖 $X$。若
+			$C=\bigcap_{\alpha}A_{\alpha}$ 与 $D=\bigcap_{\alpha}B_{\alpha}$ 都属 $\Pi$ 且 $C\cap D\neq\emptyset$，
+			则任选 $x\in C\cap D$ 可得 $A_{\alpha}=B_{\alpha}$ 对所有 $\alpha$, 从而 $C=D$，故 $\Pi$ 的块两两不交。
 
-      对任意 $x \in X$, 对每个 $\alpha \in S$ 取 $\alpha$ 中包含 $x$ 的唯一块 $A_{\alpha}$, 则
-      \[
-        x \in \bigcap_{\alpha \in S} A_{\alpha} \in \Pi,
-      \]
-      故 $\Pi$ 覆盖 $X$。
+			(ii) $\Pi$ 为下界：显然对任意 $\alpha\in S$ 与任意 $C=\bigcap_{\gamma}A_{\gamma}\in\Pi$ 有 $C\subseteq A_{\alpha}$,
+			因此 $\Pi\le\alpha$ 对所有 $\alpha$ 成立。
 
-      若
-      \[
-        C = \bigcap_{\alpha \in S} A_{\alpha} \in \Pi,
-        \qquad
-        D = \bigcap_{\alpha \in S} B_{\alpha} \in \Pi,
-        \qquad
-        C \cap D \neq \emptyset,
-      \]
-      取 $x \in C \cap D$。则对每个 $\alpha \in S$, $A_{\alpha}$ 与 $B_{\alpha}$ 都是划分 $\alpha$ 中包含 $x$ 的块, 故
-      \[
-        A_{\alpha} = B_{\alpha}.
-      \]
-      从而 $C = D$。故 $\Pi$ 中各块两两不交, 所以 $\Pi$ 是划分。
+			(iii) $\Pi$ 为最大下界：若 $\gamma\in Pt(X)$ 也是下界 (即 $\forall\alpha\in S\;\gamma\le\alpha$)，
+			则任取 $G\in\gamma$ 对所有 $\alpha$ 存在 $A_{\alpha}\in\alpha$ 使得 $G\subseteq A_{\alpha}$，故有
+			$G\subseteq\bigcap_{\alpha}A_{\alpha}\in\Pi$，因此 $\gamma\le\Pi$。
 
-      再证它是下确界。对任意 $\alpha \in S$ 与任意 $C = \bigcap_{\gamma \in S} A_{\gamma} \in \Pi$, 有
-      \[
-        C \subseteq A_{\alpha}.
-      \]
-      故
-      \[
-        \Pi \le \alpha.
-      \]
-      所以 $\Pi$ 是下界。
+			由 (i),(ii),(iii) 得 $\Pi$ 为最大下界.
 
-      若 $\gamma \in Pt(X)$ 是任意下界, 即
-      \[
-        \forall \alpha \in S\; \gamma \le \alpha,
-      \]
-      则对任意 $G \in \gamma$ 与任意 $\alpha \in S$, 存在 $A_{\alpha} \in \alpha$ 使得
-      \[
-        G \subseteq A_{\alpha}.
-      \]
-      因而
-      \[
-        G \subseteq \bigcap_{\alpha \in S} A_{\alpha} \in \Pi,
-      \]
-      故
-      \[
-        \gamma \le \Pi.
-      \]
-      这表明 $\Pi$ 是最大下界, 即
-      \[
-        \inf(S) = \Pi.
-      \]
-  \end{enumerate}
-
-  \begin{remark}
-    \textbf{重点.} 在精化偏序下, ``更小'' 意味着 ``更细''。因此下确界是公共细化, 上确界是公共粗化。\par
-    \textbf{难点.} 上确界不是简单并集, 而是要先把 ``在某个划分里同块'' 这件事做有限链闭包。\par
-    \textbf{易错点.} 很多人会把上确界与下确界的公式写反: 非空交块给出的是下确界, 不是上确界。
-  \end{remark}
+			\emph{直观说明.} 把所有划分叠在一起观察: 下确界的块就是所有划分的交集的非空格子——把每个划分都切得更细,
+			只留下在每个划分中都在同一块的点集合。
+	\end{enumerate}
 \end{proof}
-
 %%%%%%%%%%%%%%%
 
 \begin{problem}[拟序、等价关系、偏序]
@@ -515,7 +419,7 @@
   令 $X \neq \emptyset$。
   在课堂上, 我们已经证明 $(\pow{X}, \subseteq)$ 是偏序集。
 
-  \noindent 请给出任意 $S \subseteq \pow{X}$ 的上确界与下确界的表达式
+  \noindent 请给出任意 $\emptyset \neq S \subseteq \pow{X}$ 的上确界与下确界的表达式
   (无需证明)。
 \end{problem}
 
@@ -525,13 +429,6 @@
     \sup(S) = \bigcup_{A \in S} A,
     \qquad
     \inf(S) = \bigcap_{A \in S} A.
-  \]
-
-  特别地, 当 $S = \emptyset$ 时,
-  \[
-    \sup(\emptyset) = \emptyset,
-    \qquad
-    \inf(\emptyset) = X.
   \]
 \end{solution}
 %%%%%%%%%%%%%%%
