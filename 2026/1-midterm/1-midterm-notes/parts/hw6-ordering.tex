@@ -508,16 +508,7 @@
           等价关系 $\sim$ 把 ``彼此可达'' 的顶点识别为同一个对象, 即把每个 SCC 压缩成一个点。该抽象忘掉了 SCC 内部的回路细节, 只保留不同 SCC 之间的可达先后关系。
       \end{enumerate}
   \end{enumerate}
-
-  \begin{remark}
-    \textbf{重点.} 从拟序到偏序的关键步骤不是直接加上反对称性, 而是先用
-    $x \sim y \iff x \preceq y \land y \preceq x$
-    做商。\par
-    \textbf{难点.} 第 (2) 问的实质是证明商集上的顺序 \emph{良定义}; 代表元不同, 结论不能变。\par
-    \textbf{易错点.} 在 $\Z$ 的整除关系中, $x \mid y \land y \mid x$ 一般不能推出 $x = y$, 只能推出 $y = \pm x$; 这正是它是拟序而不是偏序的原因。
-  \end{remark}
 \end{proof}
-
 %%%%%%%%%%%%%%%
 
 \begin{problem}[上确界、下确界]
@@ -529,10 +520,6 @@
 \end{problem}
 
 \begin{solution}
-  \begin{intention}
-    在包含偏序下, 上界就是 ``把所有集合都装进去'', 下界就是 ``同时落在所有集合里''。因此答案应分别是并集与交集。
-  \end{intention}
-
   对任意 $S \subseteq \pow{X}$,
   \[
     \sup(S) = \bigcup_{A \in S} A,
@@ -546,14 +533,7 @@
     \qquad
     \inf(\emptyset) = X.
   \]
-
-  \begin{remark}
-    \textbf{重点.} 在 $(\pow{X}, \subseteq)$ 中, ``上'' 对应更大的集合, ``下'' 对应更小的集合。\par
-    \textbf{难点.} 上确界与下确界的方向容易被直觉说反。\par
-    \textbf{易错点.} 不能把上确界写成交集、把下确界写成并集; 那是把偏序方向看反了。
-  \end{remark}
 \end{solution}
-
 %%%%%%%%%%%%%%%
 
 \begin{problem}[偏序]
@@ -603,10 +583,4 @@
   \end{enumerate}
 
   因而 $\subseteq$ 在 $Fn(X, Y)$ 上满足自反性、反对称性与传递性, 故它是 $Fn(X, Y)$ 上的偏序关系。
-
-  \begin{remark}
-    \textbf{重点.} 函数在集合论中本来就是一组有序对, 因而可以直接比较包含关系。\par
-    \textbf{难点.} 这里的顺序不是点态大小比较, 而是 ``作为图像集合的包含''。\par
-    \textbf{易错点.} 不必另外证明 ``若 $f \subseteq g$ 则 $f$ 仍是函数''; 因为题目只要求验证 $Fn(X,Y)$ 上的关系满足偏序公理。
-  \end{remark}
 \end{proof}
