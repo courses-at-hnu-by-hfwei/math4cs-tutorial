@@ -1,1 +1,1 @@
-# 2-predicate-logic
+# 1-midterm-notes
