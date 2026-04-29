@@ -69,74 +69,15 @@
 
 \begin{problem}[反函数]
   设 $f: A \to B$ 与 $g: B \to A$ 是函数。
-  请证明, \footnote{可以在下周二课程后证明, 当然也可以现在证明。}
+  请证明,
   \[
     (f \circ g = I_B \land g \circ f = I_A) \to g = f^{-1}.
   \]
 \end{problem}
 
 \begin{proof}
-  \begin{intention}
-    两个恒等式分别给出 $f$ 的满射性与单射性, 先证明 $f$ 可逆, 再由 $f(g(b)) = b$ 与反函数定义逐点识别 $g(b)$。
-  \end{intention}
-
-  设
-  \[
-    f \circ g = I_B,
-    \qquad
-    g \circ f = I_A.
-  \]
-
-  先证 $f$ 是单射。任取 $a_1, a_2 \in A$, 若
-  \[
-    f(a_1) = f(a_2),
-  \]
-  则
-  \[
-    g(f(a_1)) = g(f(a_2)).
-  \]
-  由 $g \circ f = I_A$,
-  \[
-    a_1 = (g \circ f)(a_1) = (g \circ f)(a_2) = a_2.
-  \]
-  故 $f$ 是单射。
-
-  再证 $f$ 是满射。任取 $b \in B$, 令
-  \[
-    a = g(b) \in A.
-  \]
-  则
-  \[
-    f(a) = f(g(b)) = (f \circ g)(b) = I_B(b) = b.
-  \]
-  故 $f$ 是满射。
-
-  因而 $f$ 是双射, 故反函数 $f^{-1}: B \to A$ 存在。
-
-  对任意 $b \in B$,
-  \[
-    f(g(b)) = b.
-  \]
-  由反函数的定义,
-  \[
-    f(x) = b \iff x = f^{-1}(b).
-  \]
-  取 $x = g(b)$, 得
-  \[
-    g(b) = f^{-1}(b).
-  \]
-  因而
-  \[
-    \forall b \in B\; g(b) = f^{-1}(b),
-  \]
-  即
-  \[
-    g = f^{-1}.
-  \]
-
-  \begin{remark}
-    \textbf{重点.} $f \circ g = I_B$ 与 $g \circ f = I_A$ 的作用不同: 前者给满射, 后者给单射。\par
-    \textbf{难点.} 证明 $g = f^{-1}$ 之前, 先要说明 $f^{-1}$ 确实存在。\par
-    \textbf{易错点.} 不能只用一个恒等式就直接写出 $g = f^{-1}$; 一般必须同时检查左右逆都成立。
-  \end{remark}
+	首先, $f \circ g = I_{B}$ 是满射, 因此 $f$ 是满射。\\
+  其次, $g \circ f = I_{A}$ 是单射, 因此 $f$ 是单射。\\
+  所以, $f$ 是双射。\\
+  又由于 $f \circ g = I_{B}$, 因此 $g = f^{-1}$。
 \end{proof}
