@@ -1,0 +1,139 @@
+% hw3-predicate-logic.tex
+
+\newpage
+\section{作业 3：谓词逻辑}
+
+\begin{problem}[一阶谓词逻辑: 形式化描述与推理]
+  请使用一阶谓词逻辑公式描述以下两个定义,
+  并从逻辑推理的角度说明这两种定义之间是否有强弱之分
+  （可以使用``重言式''进行公式转换）。
+  \noindent {(要求: 需给出关键的推理步骤或理由)}
+
+  A function $f$ from $\mathbb{R}$ to $\mathbb{R}$ is called
+  \begin{enumerate}[(1)]
+    \setlength{\itemsep}{10pt}
+    \item \blue{\it pointwise continuous} (连续的) if
+      for every $x \in \mathbb{R}$
+      and every real number $\epsilon > 0$,
+      there exists real $\delta > 0$ such that
+      for every $y \in \mathbb{R}$ with $|x - y| < \delta$,
+      we have that $|f(x) -  f(y)|< \epsilon$.
+    \item \blue{\it uniformly continuous} (一致连续的) if
+      for every real number $\epsilon > 0$,
+      there exists real $\delta > 0$ such that
+      for every $x, y \in \mathbb{R}$ with $|x - y| < \delta$,
+      we have that $|f(x) -  f(y)|< \epsilon$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+  \begin{intention}
+    先把“$\delta$ 是否依赖于 $x$”写成量词次序的差异, 再由量词前束判断两种定义的强弱关系。
+  \end{intention}
+
+  取论域为 $\mathbb{R}$。
+  语言中包含常元 $0$, 函数符号 $f$, 减法 $-$, 绝对值 $|\cdot|$, 以及二元关系符号 $<$。
+
+  \begin{enumerate}[(1)]
+    \item 点态连续（pointwise continuous）可形式化为
+      \[
+        \mathrm{PC}(f) \triangleq
+        \forall x\; \forall \epsilon\; \Bigl(
+          0 < \epsilon \to
+          \exists \delta\; \bigl(
+            0 < \delta
+            \land
+            \forall y\; (|x - y| < \delta \to |f(x) - f(y)| < \epsilon)
+          \bigr)
+        \Bigr).
+      \]
+
+    \item 一致连续（uniformly continuous）可形式化为
+      \[
+        \mathrm{UC}(f) \triangleq
+        \forall \epsilon\; \Bigl(
+          0 < \epsilon \to
+          \exists \delta\; \bigl(
+            0 < \delta
+            \land
+            \forall x\; \forall y\; (|x - y| < \delta \to |f(x) - f(y)| < \epsilon)
+          \bigr)
+        \Bigr).
+      \]
+  \end{enumerate}
+
+  为了比较二者强弱, 记
+  \[
+    A(x, \epsilon, \delta) \triangleq
+    \forall y\; (|x - y| < \delta \to |f(x) - f(y)| < \epsilon).
+  \]
+  则
+  \[
+    \mathrm{PC}(f)
+    \equiv
+    \forall x\; \forall \epsilon\; (0 < \epsilon \to \exists \delta\; (0 < \delta \land A(x, \epsilon, \delta))),
+  \]
+  \[
+    \mathrm{UC}(f)
+    \equiv
+    \forall \epsilon\; (0 < \epsilon \to \exists \delta\; (0 < \delta \land \forall x\; A(x, \epsilon, \delta))).
+  \]
+
+  下面说明
+  \[
+    \mathrm{UC}(f) \vdash \mathrm{PC}(f).
+  \]
+  任取 $x \in \mathbb{R}$ 与 $\epsilon > 0$。
+  由 $\mathrm{UC}(f)$, 可得某个 $\delta > 0$ 使得
+  \[
+    \forall u\; A(u, \epsilon, \delta).
+  \]
+  对该全称式作 $\forall$-消去, 取 $u := x$, 得
+  \[
+    A(x, \epsilon, \delta),
+  \]
+  即
+  \[
+    \forall y\; (|x - y| < \delta \to |f(x) - f(y)| < \epsilon).
+  \]
+  因而同一个 $\delta$ 就可作为点 $x$ 处关于 $\epsilon$ 的见证元。
+  既然 $x, \epsilon$ 任意, 故
+  \[
+    \mathrm{UC}(f) \vdash \mathrm{PC}(f).
+  \]
+
+  反之,
+  \[
+    \mathrm{PC}(f) \nvdash \mathrm{UC}(f).
+  \]
+  根本原因是: 在 $\mathrm{PC}(f)$ 中, 量词前束为
+  \[
+    \forall x\; \forall \epsilon\; \exists \delta\; \cdots,
+  \]
+  这里的 $\delta$ 可以依赖于 $x$;
+  而在 $\mathrm{UC}(f)$ 中, 前束为
+  \[
+    \forall \epsilon\; \exists \delta\; \forall x\; \cdots,
+  \]
+  这里要求同一个 $\delta$ 同时适用于所有 $x$。
+  这显然更强。
+
+  语义上, 反向蕴含也确实不成立。例如函数
+  \[
+    f(x) = x^{2}
+  \]
+  在 $\mathbb{R}$ 上点态连续, 但并非一致连续。
+
+  综上,
+  \[
+    \mathrm{UC}(f) \text{ 比 } \mathrm{PC}(f) \text{ 更强},
+    \qquad
+    \mathrm{PC}(f) \text{ 比 } \mathrm{UC}(f) \text{ 更弱}.
+  \]
+
+  \begin{remark}
+    \textbf{重点.} 两个定义的本质差异只在量词次序: $\delta$ 是否允许依赖于 $x$。
+    \textbf{难点.} 不能把 $\forall x\, \exists \delta$ 与 $\exists \delta\, \forall x$ 互换。
+    \textbf{易错点.} 一致连续要求“同一个 $\delta$ 对所有 $x$ 都有效”, 这比普通连续强得多。
+  \end{remark}
+\end{solution}

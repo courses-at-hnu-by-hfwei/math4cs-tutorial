@@ -1,0 +1,229 @@
+% exam3-set-theory.tex
+
+\newpage
+\section{测验 3：集合论}
+
+\begin{problem}[余有限拓扑 (Cofinite Topology) \score{15}]
+设 $X$ 是一个非空集合。定义
+\[
+  \mathcal{T}_{\mathrm{cof}} =
+  \set{\emptyset} \cup \set{U \subseteq X:
+    X \setminus U \text{ 是有限集}}\text{。}
+\]
+请证明: $\mathcal{T}_{\mathrm{cof}}$ 是 $X$ 上的一个拓扑。
+\end{problem}
+
+\begin{solution}
+\textbf{命题意图：}
+本题考查学生是否能把“拓扑”完全作为集合族来理解，并熟练使用补集、任意并、有限交以及德摩根律来组织证明。这道题避免了对具体有限例子的逐项检查，改为要求证明一个经典构造确实给出拓扑。
+
+\textbf{解答：}
+要证明 $\mathcal{T}_{\mathrm{cof}}$ 是拓扑，只需验证三条公理。
+
+首先，
+\[
+  \varnothing\in \mathcal{T}_{\mathrm{cof}},
+  \qquad
+  X\in \mathcal{T}_{\mathrm{cof}},
+\]
+因为
+\[
+  X\setminus X=\varnothing
+\]
+是有限集。
+
+其次，证明对任意并封闭。设 $\{U_i:i\in I\}\subseteq \mathcal{T}_{\mathrm{cof}}$。
+
+若所有 $U_i=\varnothing$，则
+\[
+  \bigcup_{i\in I}U_i=\varnothing\in \mathcal{T}_{\mathrm{cof}}.
+\]
+
+否则，至少存在一个 $i_0\in I$ 使得 $U_{i_0}\neq \varnothing$。对每个非空 $U_i$，都有 $X\setminus U_i$ 为有限集。于是
+\[
+  X\setminus \bigcup_{i\in I}U_i
+  =
+  \bigcap_{i\in I}(X\setminus U_i).
+\]
+该交集包含于 $X\setminus U_{i_0}$，因此也是有限集。故
+\[
+  \bigcup_{i\in I}U_i\in \mathcal{T}_{\mathrm{cof}}.
+\]
+
+最后，证明对有限交封闭。设 $U_1,\dots,U_n\in \mathcal{T}_{\mathrm{cof}}$。则
+\[
+  X\setminus \bigcap_{k=1}^{n}U_k
+  =
+  \bigcup_{k=1}^{n}(X\setminus U_k).
+\]
+右边是有限个有限集的并，因此仍是有限集。故
+\[
+  \bigcap_{k=1}^{n}U_k\in \mathcal{T}_{\mathrm{cof}}.
+\]
+
+综上，$\mathcal{T}_{\mathrm{cof}}$ 满足拓扑三公理，因此是 $X$ 上的一个拓扑。\qed
+\end{solution}
+
+%%%%%%%%%%%%%%%
+
+\begin{problem}[商拓扑 (Quotient Topology) \score{25}]
+  设 $(X, \tau)$ 是一个拓扑空间，$\sim$ 是 $X$ 上的一个等价关系。
+  记
+  \[
+    q: X \to X/\sim, \qquad q(x) = [x]\text{。}
+  \]
+  在商集 $X/\sim$ 上定义集合族~\footnote{
+    事情开始变得诡异了!
+    你要``训练''你的直觉, 从``更抽象''的层次理解并运用集合论的工具。
+    这的确需要适应。
+
+    这道题有难度, 加油!
+
+    始终保持头脑清醒: 回到定义本身!
+  }
+  \[
+    \tau_{\sim} =
+    \set{U \subseteq X/{\sim}: q^{-1}(U) \in \tau}\text{。}
+  \]
+
+  \begin{enumerate}[(1)]
+    \item 请证明:
+      $\tau_{\sim}$ 是 $X/\sim$ 上的一个拓扑。
+    \item 请证明 $q: (X, \tau) \to (X/\sim, \tau_{\sim})$
+      是{\bf 满射}, 且是{\bf 连续映射}。
+    \item 设 $(Y, \sigma)$ 是一个拓扑空间，
+      $g: X \to Y$ 是连续映射，并且满足
+      \[
+        x \sim y \Rightarrow g(x) = g(y).
+      \]
+      请证明: 存在{\bf 唯一}的{\bf 连续}映射
+      \[
+        \bar{g}: (X/\sim, \tau_{\sim}) \to (Y, \sigma),
+      \]
+      使得
+      \[
+        g = \bar{g} \circ q\text{。}
+      \]
+
+      \par\noindent{\bf 提示（思路）:}
+      \begin{itemize}
+        \item 存在性:
+          \[
+            q: x \mapsto [x] \qquad
+            g: x \mapsto g(x),
+          \]
+          需要构造怎样的 $\bar{g}: \;? \mapsto \;?$,
+          才能满足 $g = \bar{g} \circ q$?
+        \item 连续性: 根据连续性的定义, 并注意 $g = \bar{g} \circ q$。
+        \item 唯一性: 证明某类对象的唯一性, 常用思路是什么?
+      \end{itemize}
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\textbf{命题意图：}
+本题是全卷中最能体现“集合论语言通向拓扑语言”的题目。它把“关系、等价类、商集、因子分解”这些集合论对象，与“商拓扑、连续性、普遍性质”连接起来。它也刻意避开了与函数作业中“由满射诱导等价关系并得到集合层面的因子分解”相重复的命题，而把重点放在真正的拓扑层面：商拓扑与连续映射的下降。
+
+\textbf{提示（构造思路）：}
+试着定义 $\bar g$ 对等价类 $[x]$ 的像为某个代表元 $x$ 的像，即令 $\bar g([x])=g(x)$，并先检验此定义与代表元的选择无关（良定义性）。要证明连续性，可取任意开集 $V\subseteq Y$，比较
+\[
+  q^{-1}\bigl(\bar g^{-1}(V)\bigr)\quad\text{与}\quad g^{-1}(V)
+\]
+的关系，并利用商拓扑的定义把 $\bar g$ 的开集原像问题还原为 $g$ 的开集原像问题。最后利用 $q$ 的满射性说明若存在另一个映射 $h$ 满足 $g=h\circ q$，则 $h$ 必与 $\bar g$ 在每个等价类上取相同值，从而得到唯一性。
+
+\textbf{解答：}
+
+\begin{enumerate}[(1)]
+  \item 要证明 $\tau_{\sim}$ 是拓扑，只需验证三条公理。
+
+  首先，
+  \[
+    q^{-1}(\varnothing)=\varnothing\in \tau,
+    \qquad
+    q^{-1}(X/{\sim})=X\in \tau.
+  \]
+  所以
+  \[
+    \varnothing,\ X/{\sim}\in \tau_{\sim}.
+  \]
+
+  其次，若 $\{U_i:i\in I\}\subseteq \tau_{\sim}$，则对每个 $i$ 都有 $q^{-1}(U_i)\in \tau$。并且
+  \[
+    q^{-1}\!\left(\bigcup_{i\in I}U_i\right)
+    =
+    \bigcup_{i\in I}q^{-1}(U_i).
+  \]
+  右边属于 $\tau$，故
+  \[
+    \bigcup_{i\in I}U_i\in \tau_{\sim}.
+  \]
+
+  最后，若 $U_1,\dots,U_n\in \tau_{\sim}$，则
+  \[
+    q^{-1}\!\left(\bigcap_{k=1}^{n}U_k\right)
+    =
+    \bigcap_{k=1}^{n}q^{-1}(U_k).
+  \]
+  右边属于 $\tau$，故
+  \[
+    \bigcap_{k=1}^{n}U_k\in \tau_{\sim}.
+  \]
+
+  因此 $\tau_{\sim}$ 是 $X/{\sim}$ 上的一个拓扑。
+
+  \item 先证满射。任取 $X/{\sim}$ 中的元素，它是某个等价类 $[x]$，而
+  \[
+    q(x)=[x].
+  \]
+  所以 $q$ 是满射。
+
+  再证连续。任取 $U\in \tau_{\sim}$。由定义，
+  \[
+    q^{-1}(U)\in \tau.
+  \]
+  这正是连续性的定义，因此 $q$ 连续。
+
+  \item 先定义
+  \[
+    \bar g([x])=g(x).
+  \]
+  需要证明其良定义。若 $[x]=[y]$，则 $x\sim y$，从而 $g(x)=g(y)$。故 $\bar g$ 良定义。
+
+  接着验证分解关系。对任意 $x\in X$，
+  \[
+    (\bar g\circ q)(x)=\bar g([x])=g(x),
+  \]
+  故
+  \[
+    g=\bar g\circ q.
+  \]
+
+  再证唯一性。若还有映射 $h:X/{\sim}\to Y$ 满足 $g=h\circ q$，则对任意 $[x]\in X/{\sim}$，
+  \[
+    h([x])=h(q(x))=g(x)=\bar g([x]).
+  \]
+  因此 $h=\bar g$，所以这样的映射唯一。
+
+  最后证连续性。任取 $V\in \sigma$。由于 $g$ 连续，
+  \[
+    g^{-1}(V)\in \tau.
+  \]
+  另一方面，
+  \[
+    q^{-1}(\bar g^{-1}(V))
+    =
+    (\bar g\circ q)^{-1}(V)
+    =
+    g^{-1}(V).
+  \]
+  因而
+  \[
+    q^{-1}(\bar g^{-1}(V))\in \tau.
+  \]
+  由 $\tau_{\sim}$ 的定义，得到
+  \[
+    \bar g^{-1}(V)\in \tau_{\sim}.
+  \]
+  所以 $\bar g$ 连续。\qed
+\end{enumerate}
+\end{solution}

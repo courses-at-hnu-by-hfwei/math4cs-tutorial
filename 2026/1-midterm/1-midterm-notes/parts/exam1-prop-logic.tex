@@ -1,0 +1,168 @@
+% exam1-prop-logic.tex
+
+\newpage
+\section{测验 1：命题逻辑}
+
+\begin{problem}[命题逻辑的自然推理系统]
+  请使用自然推理规则证明以下结论:
+
+  \begin{enumerate}[(1)]
+    \setcounter{enumi}{3}
+    \item
+      \[
+        \vdash ((p \to q) \to q) \to ((q \to p) \to p)
+      \]
+      \begin{solution}
+        \begin{intention}
+          外层连做两次 $\to\intro$; 真正的难点是从 $\lnot p$ 构造出 $p \to q$。
+        \end{intention}
+
+        {\small
+        \begin{logicproof}{4}
+          \begin{subproof}
+            (p \to q) \to q & assumption \\
+            \begin{subproof}
+              q \to p & assumption \\
+              \begin{subproof}
+                \lnot p & assumption \\
+                \begin{subproof}
+                  p & assumption \\
+                  \bot & $\lnot\elim$ 3, 4 \\
+                  q & $\bot\elim$ 5
+                \end{subproof}
+                p \to q & $\to\intro$ 4--6 \\
+                q & $\to\elim$ 1, 7 \\
+                p & $\to\elim$ 2, 8 \\
+                \bot & $\lnot\elim$ 3, 9
+              \end{subproof}
+              \lnot\lnot p & $\lnot\intro$ 3--10 \\
+              p & $\lnot\lnot\elim$ 11
+            \end{subproof}
+            (q \to p) \to p & $\to\intro$ 2--12
+          \end{subproof}
+          ((p \to q) \to q) \to ((q \to p) \to p) & $\to\intro$ 1--13
+        \end{logicproof}}
+
+        \begin{remark}
+          \textbf{难点.} 在假设 $\lnot p$ 下, 通过子证明
+          $p \Rightarrow \bot \Rightarrow q$
+          得到 $p \to q$, 这是整题的关键构造。
+          \textbf{易错点.} 两层 $\to\intro$ 与一层 $\lnot\intro$ 的释放区间不要写错。
+        \end{remark}
+      \end{solution}
+  \end{enumerate}
+\end{problem}
+
+%%%%%%%%%%%%%%%
+
+\begin{problem}[命题逻辑的自然推理系统]
+  请使用自然推理规则证明以下结论:
+
+  \begin{enumerate}[(1)]
+    \setcounter{enumi}{2}
+    \item (德摩根律)
+      \[
+        \lnot(\alpha \land \beta) \vdash (\lnot\alpha \lor \lnot\beta)
+      \]
+      提示: 你可能需要多次用到排中律 $\frac{}{\alpha \lor \lnot\alpha}$。
+      \begin{solution}
+        \begin{intention}
+          这是\blue{经典}结论; 按提示两次使用排中律, 再做分情况讨论。
+        \end{intention}
+
+        {\small
+        \begin{logicproof}{4}
+          \lnot(\alpha \land \beta) & premise \\
+          \alpha \lor \lnot\alpha & LEM \\
+          \begin{subproof}
+            \alpha & assumption \\
+            \beta \lor \lnot\beta & LEM \\
+            \begin{subproof}
+              \beta & assumption \\
+              \alpha \land \beta & $\land\intro$ 3, 5 \\
+              \bot & $\lnot\elim$ 1, 6 \\
+              \lnot\alpha \lor \lnot\beta & $\bot\elim$ 7
+            \end{subproof}
+            \begin{subproof}
+              \lnot\beta & assumption \\
+              \lnot\alpha \lor \lnot\beta & $\lor\introright$ 9
+            \end{subproof}
+            \lnot\alpha \lor \lnot\beta & $\lor\elim$ 4, 5--8, 9--10
+          \end{subproof}
+          \begin{subproof}
+            \lnot\alpha & assumption \\
+            \lnot\alpha \lor \lnot\beta & $\lor\introleft$ 12
+          \end{subproof}
+          \lnot\alpha \lor \lnot\beta & $\lor\elim$ 2, 3--11, 12--13
+        \end{logicproof}}
+
+        \begin{remark}
+          \textbf{难点.} 该结论不是纯直觉主义写法; 这里明确依赖排中律 LEM。
+          \textbf{易错点.} 在情形 $\alpha, \beta$ 下, 先得出 $\alpha \land \beta$, 再与前提碰撞得到 $\bot$,
+          最后用 $\bot\elim$ 返回目标式。
+        \end{remark}
+      \end{solution}
+  \end{enumerate}
+\end{problem}
+
+%%%%%%%%%%%%%%%
+
+\begin{problem}[另一个命题逻辑推理系统]
+  考虑一个``希尔伯特''式的命题逻辑推理系统,
+  它包含三个公理 (A1)、(A2) 与 (A3):
+  \begin{enumerate}[label=(A\arabic*)]
+    \item
+      \[
+        \alpha \to (\beta \to \alpha)
+      \]
+    \item
+      \[
+        (\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma))
+      \]
+    \item
+      \[
+        (\lnot \beta \to \lnot \alpha) \to ((\lnot \beta \to \alpha) \to \beta)
+      \]
+  \end{enumerate}
+  除此之外, 它还包含一个推理规则 (与课堂上介绍的自然推理系统不同,
+  它只包含一个推理规则):
+  \[
+    \frac{\qquad\alpha \to \beta \qquad \alpha\qquad}{\beta} \qquad \text{MP; 分离规则}
+  \]
+
+  在该推理系统中, 公式 $\alpha \to \alpha$ 的一种证明方式如下:
+  \begin{align}
+    (\alpha \to (\alpha \to \alpha) \to \alpha) \to
+      (\alpha \to (\alpha \to \alpha)) \to (\alpha \to \alpha) \\
+    \alpha \to (\alpha \to \alpha) \to \alpha \\
+    (\alpha \to (\alpha \to \alpha)) \to (\alpha \to \alpha) \\
+    \alpha \to (\alpha \to \alpha) \\
+    \alpha \to \alpha
+  \end{align}
+  请给出每一步的依据 (即, 基于哪几条公式, 应用哪条公理或分离规则)。
+\end{problem}
+
+\begin{solution}
+  \begin{intention}
+    先识别公理模式的代换实例, 再连续两次应用 MP。
+  \end{intention}
+
+  \begin{align}
+    &(\alpha \to (\alpha \to \alpha) \to \alpha) \to
+      (\alpha \to (\alpha \to \alpha)) \to (\alpha \to \alpha)
+      && \text{A2, 令 $\beta := (\alpha \to \alpha),\ \gamma := \alpha$} \tag{1} \\
+    &\alpha \to (\alpha \to \alpha) \to \alpha
+      && \text{A1, 令 $\beta := (\alpha \to \alpha)$} \tag{2} \\
+    &(\alpha \to (\alpha \to \alpha)) \to (\alpha \to \alpha)
+      && \text{MP, 由 (1), (2)} \tag{3} \\
+    &\alpha \to (\alpha \to \alpha)
+      && \text{A1, 令 $\beta := \alpha$} \tag{4} \\
+    &\alpha \to \alpha
+      && \text{MP, 由 (3), (4)} \tag{5}
+  \end{align}
+
+  \begin{remark}
+    \textbf{重点.} 第 (1) 步是 A2 的代换实例, 不是 A1。
+    \textbf{易错点.} A1 的固定形状是 $\alpha \to (\beta \to \alpha)$; 代换时要先确定“首尾同一个 $\alpha$”。
+  \end{remark}
+\end{solution}

@@ -1,0 +1,342 @@
+% exam2-predicate-logic.tex
+
+\newpage
+\section{测验 2：谓词逻辑}
+
+\begin{problem}[一阶谓词逻辑公式]
+  考虑如下欧式空间 $\mathbb{R}^{n}$ 中``开集'' (Open Set) 的定义:
+
+  ``A subset $U$ of the Euclidean $n$-space $\mathbb{R}^{n}$
+    is {\it open} if, for every point $x$ in $U$,
+    there exists a positive real number $\epsilon$
+    (depending on $x$) such that any point in $\mathbb{R}^{n}$
+    whose Euclidean distance from $x$ is smaller than $\epsilon$
+    belongs to $U$.''
+
+  \begin{enumerate}[(1)]
+    \item 请将``Open Set''（开集）的定义翻译成一阶谓词逻辑公式,
+      记为 $\phi$。
+      请自行选择论域（全集 Universe）、谓词符号和函数符号, 并请说明它们的含义。
+      \begin{solution}
+        \begin{intention}
+          先固定语言, 再把“对每个 $x \in U$ 都存在依赖于 $x$ 的 $\epsilon > 0$”直接翻译成量词次序。
+        \end{intention}
+
+        取单论域
+        \[
+          |\mathcal{M}| = \mathbb{R}^{n} \cup \mathbb{R}_{> 0}.
+        \]
+        取如下谓词符号:
+        \begin{align*}
+          &\mathrm{Pt}(x): x \in \mathbb{R}^{n}, \\
+          &\mathrm{U}(x): x \in U, \\
+          &\mathrm{Pos}(\epsilon): \epsilon > 0, \\
+          &\mathrm{N}(y, x, \epsilon): d(y, x) < \epsilon.
+        \end{align*}
+        不必额外引入函数符号。
+
+        则“$U$ 是开集”可写为
+        \[
+          \phi \triangleq
+          \forall x\, \Bigl(
+            (\mathrm{Pt}(x) \land \mathrm{U}(x)) \to
+            \exists \epsilon\, \bigl(
+              \mathrm{Pos}(\epsilon)
+              \land
+              \forall y\, 
+                ((\mathrm{Pt}(y) \land \mathrm{N}(y, x, \epsilon)) \to \mathrm{U}(y))
+            \bigr)
+          \Bigr).
+        \]
+
+        \begin{remark}
+          \textbf{重点.} $\exists \epsilon$ 必须放在对应的 $x$ 之后, 因为 $\epsilon$ 依赖于 $x$。
+          \textbf{易错点.} 不能误写成 $\exists \epsilon\, \forall x\, \cdots$; 那表达的是“同一个半径适用于所有 $x$”。
+        \end{remark}
+      \end{solution}
+    \item 请给出 $\lnot \phi$ 公式。
+      \begin{solution}
+        \begin{intention}
+          逐层推进否定号, 把“开集”改写成“存在某个 $x \in U$, 对任意正半径都能找到一个跑出 $U$ 的点”。
+        \end{intention}
+
+        由上题中的 $\phi$,
+        \begin{align*}
+          \lnot \phi
+            &\equiv \exists x\, \Bigl(
+              (\mathrm{Pt}(x) \land \mathrm{U}(x))
+              \land
+              \lnot \exists \epsilon\, \bigl(
+                \mathrm{Pos}(\epsilon)
+                \land
+                \forall y\, ((\mathrm{Pt}(y) \land \mathrm{N}(y, x, \epsilon)) \to \mathrm{U}(y))
+              \bigr)
+            \Bigr) \\
+            &\equiv \exists x\, \Bigl(
+              (\mathrm{Pt}(x) \land \mathrm{U}(x))
+              \land
+              \forall \epsilon\, \Bigl(
+                \mathrm{Pos}(\epsilon) \to
+                \exists y\, 
+                  (\mathrm{Pt}(y) \land \mathrm{N}(y, x, \epsilon) \land \lnot \mathrm{U}(y))
+              \Bigr)
+            \Bigr).
+        \end{align*}
+
+        \begin{remark}
+          \textbf{重点.} 否定 $\forall y(A \to B)$ 时, 先化为
+          $\exists y(A \land \lnot B)$。
+          \textbf{易错点.} 不要把 $\lnot \exists \epsilon$ 误写成 $\exists \epsilon \lnot$; 应为 $\forall \epsilon \lnot$。
+        \end{remark}
+      \end{solution}
+  \end{enumerate}
+\end{problem}
+
+%%%%%%%%%%%%%%%
+
+\begin{problem}[一阶谓词逻辑的语法: 替换]
+  考虑如下公式 $\phi$:
+  \[
+    \phi \triangleq \forall x\, ((\exists y\, P(x, y, z)) \land (\forall z\, P(x, y, z))).
+  \]
+  其中, $P$ 是三元谓词符号。
+  请回答以下问题:
+
+  \begin{enumerate}[(a)]
+    \item 指出变元 $y$ 的所有自由出现和约束出现。
+      \begin{solution}
+        \begin{intention}
+          先看每个 $y$ 是否落在某个量词 $\exists y$ 的管辖范围内。
+        \end{intention}
+
+        将 $y$ 的出现标出:
+        \[
+          \phi = \forall x\, \bigl((\exists y\, P(x, \blue{y}, z)) \land (\forall z\, P(x, \red{y}, z))\bigr).
+        \]
+        因此:
+        \begin{align*}
+          &\text{约束出现: } \exists y\, P(x, \blue{y}, z) \text{ 中的 } y; \\
+          &\text{自由出现: } \forall z\, P(x, \red{y}, z) \text{ 中的 } y.
+        \end{align*}
+
+        \begin{remark}
+          \textbf{重点.} 判断自由/约束, 只看对应出现是否被同名量词绑定。
+          \textbf{易错点.} 最外层 $\forall x$ 与右侧的 $\forall z$ 都不会绑定 $y$。
+        \end{remark}
+      \end{solution}
+    \item 令 $t \triangleq g(f(g(y, y)), y)$,
+      分别计算 $\phi[t/x]$、$\phi[t/y]$ 与 $\phi[t/z]$。
+      \begin{solution}
+        \begin{intention}
+          只替换自由出现; 先判断哪个变元在 $\phi$ 中真的有自由出现, 再做逐项代入。
+        \end{intention}
+
+        记
+        \[
+          t = g(f(g(y, y)), y).
+        \]
+        则
+        \begin{align*}
+          \phi[t/x]
+            &= \forall x\, ((\exists y\, P(x, y, z)) \land (\forall z\, P(x, y, z))), \\
+          \phi[t/y]
+            &= \forall x\, \Bigl((\exists y\, P(x, y, z)) \land
+              (\forall z\, P(x, g(f(g(y, y)), y), z))\Bigr), \\
+          \phi[t/z]
+            &= \forall x\, \Bigl((\exists y\, P(x, y, g(f(g(y, y)), y))) \land
+              (\forall z\, P(x, y, z))\Bigr).
+        \end{align*}
+        其中 $\phi[t/x] = \phi$, 因为 $x$ 在 $\phi$ 中没有自由出现。
+
+        \begin{remark}
+          \textbf{重点.} $\phi[t/v]$ 只改写 $v$ 的自由出现。
+          \textbf{易错点.} 左侧合取项中的 $y$ 被 $\exists y$ 绑定, 不能在 $\phi[t/y]$ 中被替换。
+        \end{remark}
+      \end{solution}
+    \item 分别判断上述 $t$ 在 $\phi$ 中是否可无冲突地替换 $x$、$y$ 与 $z$;
+      对于不可无冲突替换的情况, 请说明理由。
+      \begin{solution}
+        \begin{intention}
+          检查 $t$ 中的自由变元会不会在替换后落入某个量词的作用域而被捕获。
+        \end{intention}
+
+        结论为:
+        \begin{align*}
+          &t \text{ 对 } x \text{ 可无冲突替换}; \\
+          &t \text{ 对 } y \text{ 可无冲突替换}; \\
+          &t \text{ 对 } z \text{ 不可无冲突替换}.
+        \end{align*}
+
+        理由如下:
+        \begin{enumerate}[(i)]
+          \item 对 $x$: $x$ 在 $\phi$ 中无自由出现, 因而不会发生变量捕获; 这是\blue{真空成立}。
+          \item 对 $y$: 唯一要替换的自由出现位于 $\forall z\, P(x, y, z)$ 中; 而 $t$ 的自由变元只有 $y$, 不会被 $\forall z$ 捕获。
+          \item 对 $z$: 要替换的自由出现位于 $\exists y\, P(x, y, z)$ 中; 但 $t$ 含有自由变元 $y$, 替换后会落入 $\exists y$ 的作用域, 从而使 $t$ 中的 $y$ 被捕获。
+        \end{enumerate}
+
+        \begin{remark}
+          \textbf{难点.} “可无冲突替换”检查的是\blue{替换进去的项中的自由变元}, 不是只检查原公式里同名变元。
+          \textbf{易错点.} $t$ 中没有 $z$, 所以对 $y$ 的替换不会被 $\forall z$ 影响; 真正出问题的是对 $z$ 的替换会撞上 $\exists y$。
+        \end{remark}
+      \end{solution}
+  \end{enumerate}
+\end{problem}
+
+%%%%%%%%%%%%%%%
+
+\begin{problem}[一阶谓词逻辑公式的语义]
+  考虑公式 $\phi \triangleq \forall x\, \forall y\, \exists z\, (R(x, y) \to R(y, z))$,
+  其中 $R$ 是二元谓词符号。
+  请判断下列结构 $\mathcal{M}$ 是否满足 $\phi$,
+  并说明理由:
+  \begin{enumerate}[(1)]
+    \item 令 $|\mathcal{M}| = \{a, b, c, d\}$ 且
+      $R^{\mathcal{M}} = \{(b, c), (b, b), (b, a)\}$。
+      \begin{solution}
+        \begin{intention}
+          固定一个使前件为真的二元组 $(x, y)$; 若对该 $y$ 根本找不到后继 $z$, 则原公式立即失败。
+        \end{intention}
+
+        取
+        \[
+          x = b, \qquad y = c.
+        \]
+        则
+        \[
+          R^{\mathcal{M}}(b, c) \text{ 为真}.
+        \]
+        因而
+        \[
+          \exists z\, (R(b, c) \to R(c, z))
+        \]
+        等价于
+        \[
+          \exists z\, R(c, z).
+        \]
+        但由
+        \[
+          R^{\mathcal{M}} = \{(b, c), (b, b), (b, a)\}
+        \]
+        可知不存在任何 $z \in |\mathcal{M}|$ 使得 $(c, z) \in R^{\mathcal{M}}$。
+        故
+        \[
+          \mathcal{M} \not\models \phi.
+        \]
+
+        \begin{remark}
+          \textbf{重点.} 当前件 $R(x, y)$ 为真时, 必须找到某个 $z$ 使 $R(y, z)$ 为真。
+          \textbf{易错点.} 不能因为存在量词 $\exists z$ 就“任选一个 $z$”; 该 $z$ 必须真的让蕴含式成立。
+        \end{remark}
+      \end{solution}
+    \item 令 $|\mathcal{M}| = \{a, b, c\}$ 且
+      $R^{\mathcal{M}} = \{(b, c), (a, b), (c, b)\}$。
+      \begin{solution}
+        \begin{intention}
+          只需检查所有使 $R(x, y)$ 为真的二元组; 对每个这样的 $y$, 给出一个见证 $z$ 即可。
+        \end{intention}
+
+        需要检查的真元组只有
+        \[
+          (a, b), \qquad (b, c), \qquad (c, b).
+        \]
+        分别取见证:
+        \begin{align*}
+          &(x, y) = (a, b): && z = c, && R(b, c) \text{ 为真}; \\
+          &(x, y) = (b, c): && z = b, && R(c, b) \text{ 为真}; \\
+          &(x, y) = (c, b): && z = c, && R(b, c) \text{ 为真}.
+        \end{align*}
+        对其余 $(x, y)$, 有 $R(x, y)$ 为假, 因而
+        \[
+          R(x, y) \to R(y, z)
+        \]
+        对任意 $z$ 都为真。
+        故
+        \[
+          \mathcal{M} \models \phi.
+        \]
+
+        \begin{remark}
+          \textbf{重点.} 检查公式时, 只要前件为假的情形都自动满足。
+          \textbf{易错点.} 不必为所有 $(x, y)$ 都单独构造非平凡见证; 真正关键的是 $R(x, y)$ 为真的那些对。
+        \end{remark}
+      \end{solution}
+  \end{enumerate}
+\end{problem}
+
+%%%%%%%%%%%%%%%
+
+\begin{problem}[一阶谓词逻辑的自然推理系统]
+  请使用自然推理规则证明:
+
+  \begin{enumerate}[(1)]
+    \setcounter{enumi}{2}
+    \item
+      \[
+        \exists x\, (P(x) \land Q(x)) \vdash \exists x\, P(x) \land \exists x\, Q(x)
+      \]
+      \begin{solution}
+        \begin{intention}
+          先用 $\exists$-elim 打开一个见证, 再分别做两次 $\exists$-intro, 最后用 $\land$-intro 合并。
+        \end{intention}
+
+        {\small
+        \begin{logicproof}{4}
+          \exists x\, (P(x) \land Q(x)) & premise \\
+          \begin{subproof}
+            x_0\; (\text{\blue{fresh}}),\; P(x_0) \land Q(x_0) & assumption \\
+            P(x_0) & $\land\elimleft$ 2 \\
+            Q(x_0) & $\land\elimright$ 2 \\
+            \exists x\, P(x) & $\exists$-intro 3 \\
+            \exists x\, Q(x) & $\exists$-intro 4 \\
+            \exists x\, P(x) \land \exists x\, Q(x) & $\land\intro$ 5, 6
+          \end{subproof}
+          \exists x\, P(x) \land \exists x\, Q(x) & $\exists$-elim 1, 2--7
+        \end{logicproof}}
+
+        \begin{remark}
+          \textbf{重点.} 该题不是把 $\exists x$ 分配到合取号上, 而是通过见证 $x_0$ 分别构造两个存在式。
+          \textbf{易错点.} 不能直接写成 “由 $\exists x(P(x) \land Q(x))$ 得 $\exists x P(x)$ 且 $\exists x Q(x)$” 而不展示见证与规则。
+        \end{remark}
+      \end{solution}
+  \end{enumerate}
+\end{problem}
+
+%%%%%%%%%%%%%%%
+
+\begin{problem}[一阶谓词逻辑的自然推理系统]
+  请使用自然推理规则证明:
+
+  \begin{enumerate}[(1)]
+    \setcounter{enumi}{3}
+    \item
+      \[
+        \phi \to \forall x\, Q(x) \vdash \forall x\, (\phi \to Q(x))
+      \]
+      其中 $x$ 在 $\phi$ 中不自由出现。
+      \begin{solution}
+        \begin{intention}
+          先取任意新元 $x_0$, 再在假设 $\phi$ 下推出 $Q(x_0)$, 最后依次做 $\to$-intro 与 $\forall$-intro。
+        \end{intention}
+
+        {\small
+        \begin{logicproof}{4}
+          \phi \to \forall x\, Q(x) & premise \\
+          \begin{subproof}
+            x_0 & \text{\blue{fresh}} \\
+            \begin{subproof}
+              \phi & assumption \\
+              \forall x\, Q(x) & $\to\elim$ 1, 3 \\
+              Q(x_0) & $\forall$-elim 4
+            \end{subproof}
+            \phi \to Q(x_0) & $\to\intro$ 3--5
+          \end{subproof}
+          \forall x\, (\phi \to Q(x)) & $\forall$-intro 2--6
+        \end{logicproof}}
+
+        \begin{remark}
+          \textbf{难点.} $\forall$-intro 的对象是 $\phi \to Q(x_0)$, 所以要先完成一次 $\to$-intro。
+          \textbf{易错点.} 题设“$x$ 在 $\phi$ 中不自由出现”正是为了保证最终一般化得到的是 $\forall x\, (\phi \to Q(x))$。
+        \end{remark}
+      \end{solution}
+  \end{enumerate}
+\end{problem}

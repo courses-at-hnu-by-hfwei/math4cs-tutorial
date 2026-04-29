@@ -1,0 +1,192 @@
+% hw4-set-relation.tex
+
+\newpage
+\section{作业 4：集合与关系}
+
+\begin{problem}[关系的运算]
+  请证明,
+  \[
+    (X \cap Y) \circ Z \subseteq (X \circ Z) \cap (Y \circ Z).
+  \]
+  请举例说明, $\subseteq$ 不能换成 $=$。
+\end{problem}
+
+\begin{proof}
+  \begin{intention}
+    直接按复合的定义拆开; 左侧给出的同一个中间见证同时适用于 $X \circ Z$ 和 $Y \circ Z$。反例则故意让右侧的两个见证不同。
+  \end{intention}
+
+  对任意 $(a, c)$,
+  \begin{align*}
+    (a, c) \in (X \cap Y) \circ Z
+      &\iff \exists b.\; (a, b) \in Z \land (b, c) \in X \cap Y \\
+      &\iff \exists b.\; \big((a, b) \in Z \land (b, c) \in X \land (b, c) \in Y\big) \\
+      &\implies \exists b.\; \big((a, b) \in Z \land (b, c) \in X\big)
+          \land \exists b.\; \big((a, b) \in Z \land (b, c) \in Y\big) \\
+      &\iff (a, c) \in X \circ Z \land (a, c) \in Y \circ Z \\
+      &\iff (a, c) \in (X \circ Z) \cap (Y \circ Z).
+  \end{align*}
+  故
+  \[
+    (X \cap Y) \circ Z \subseteq (X \circ Z) \cap (Y \circ Z).
+  \]
+
+  下面给出严格包含的反例。取
+  \[
+    Z = \set{(1, 2), (1, 3)},
+    \qquad
+    X = \set{(2, 4)},
+    \qquad
+    Y = \set{(3, 4)}.
+  \]
+  则
+  \[
+    X \cap Y = \emptyset,
+    \qquad
+    (X \cap Y) \circ Z = \emptyset.
+  \]
+  另一方面,
+  \[
+    X \circ Z = \set{(1, 4)},
+    \qquad
+    Y \circ Z = \set{(1, 4)},
+  \]
+  从而
+  \[
+    (X \circ Z) \cap (Y \circ Z) = \set{(1, 4)}.
+  \]
+  因此
+  \[
+    (X \cap Y) \circ Z = \emptyset \subsetneq \set{(1, 4)} = (X \circ Z) \cap (Y \circ Z).
+  \]
+  所以 $\subseteq$ 不能换成 $=$。
+
+  \begin{remark}
+    \textbf{重点.} 左侧的一个见证 $b$ 同时见证了两件事: 属于 $X \circ Z$ 与属于 $Y \circ Z$。\par
+    \textbf{难点.} 右侧交集中的两个存在量词可以对应不同的见证, 这正是逆包含失败的根源。\par
+    \textbf{易错点.} 复合 $R \circ S$ 的含义是 ``先做 $S$, 再做 $R$'', 不要把顺序写反。
+  \end{remark}
+\end{proof}
+
+%%%%%%%%%%%%%%%
+
+\begin{problem}[关系的性质]
+  请证明,
+  \[
+    R \text{ 是对称且传递的 } \iff R = R^{-1} \circ R
+  \]
+\end{problem}
+
+\begin{proof}
+  \begin{intention}
+    先把 $R^{-1} \circ R$ 读成 ``有公共 $R$-后继'', 再分别证明两个方向。证明逆向时, 先由等式推出对称性, 再借此推出传递性。
+  \end{intention}
+
+  \begin{enumerate}[(1)]
+    \item[$(\Rightarrow)$] 设 $R$ 是对称且传递的。
+
+      先证 $R \subseteq R^{-1} \circ R$。
+      任取 $(a, b) \in R$。
+      由对称性,
+      \[
+        (b, a) \in R.
+      \]
+      再由传递性,
+      \[
+        (a, a) \in R.
+      \]
+      取见证 $a$, 则
+      \[
+        (a, a) \in R,
+        \qquad
+        (a, b) \in R^{-1}
+        \quad (\text{因为 } (b, a) \in R),
+      \]
+      从而
+      \[
+        (a, b) \in R^{-1} \circ R.
+      \]
+      故
+      \[
+        R \subseteq R^{-1} \circ R.
+      \]
+
+      再证 $R^{-1} \circ R \subseteq R$。
+      任取 $(a, b) \in R^{-1} \circ R$。
+      则存在 $c$ 使得
+      \[
+        (a, c) \in R,
+        \qquad
+        (c, b) \in R^{-1}.
+      \]
+      于是 $(b, c) \in R$。由对称性得 $(c, b) \in R$, 再由传递性得
+      \[
+        (a, b) \in R.
+      \]
+      故
+      \[
+        R^{-1} \circ R \subseteq R.
+      \]
+
+      因而
+      \[
+        R = R^{-1} \circ R.
+      \]
+
+    \item[$(\Leftarrow)$] 设 $R = R^{-1} \circ R$。
+
+      先证 $R$ 对称。
+      任取 $(a, b) \in R$。由等式,
+      \[
+        (a, b) \in R^{-1} \circ R.
+      \]
+      故存在 $c$ 使得
+      \[
+        (a, c) \in R,
+        \qquad
+        (c, b) \in R^{-1},
+      \]
+      即
+      \[
+        (a, c) \in R,
+        \qquad
+        (b, c) \in R.
+      \]
+      于是同一见证 $c$ 也说明
+      \[
+        (b, a) \in R^{-1} \circ R = R.
+      \]
+      所以 $R$ 对称。
+
+      再证 $R$ 传递。
+      任取 $(a, b), (b, c) \in R$。
+      由刚证得的对称性,
+      \[
+        (c, b) \in R.
+      \]
+      因而以 $b$ 为见证,
+      \[
+        (a, b) \in R,
+        \qquad
+        (c, b) \in R,
+      \]
+      从而
+      \[
+        (a, c) \in R^{-1} \circ R = R.
+      \]
+      所以 $R$ 传递。
+  \end{enumerate}
+
+  综上,
+  \[
+    R \text{ 是对称且传递的 } \iff R = R^{-1} \circ R.
+  \]
+
+  \begin{remark}
+    \textbf{重点.} 按本课定义,
+    \[(a, b) \in R^{-1} \circ R \iff \exists c.\; (a, c) \in R \land (b, c) \in R.\]
+    也就是 $a, b$ 有公共 $R$-后继。\par
+    \textbf{难点.} 证明 $R \subseteq R^{-1} \circ R$ 时, 需要先由对称性与传递性推出 $(a, a) \in R$。\par
+    \textbf{易错点.} 不能把 $R \circ R^{-1}$ 和 $R^{-1} \circ R$ 混淆; 这里的复合顺序非常关键。
+  \end{remark}
+\end{proof}
