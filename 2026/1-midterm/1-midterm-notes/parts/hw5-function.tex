@@ -15,89 +15,56 @@
 \end{problem}
 
 \begin{proof}
-  \begin{intention}
-    第 (1) 问把等价关系三性质全部化成等式的基本性质; 第 (2) 问先证 $h([x]_R)=f(x)$ 与代表元选择无关, 再用 $f$ 的满射性推出 $h$ 的满射性。
-  \end{intention}
-
   \begin{enumerate}[(1)]
-    \item 下证 $R$ 是 $X$ 上的等价关系。
-
-      \begin{enumerate}[(i)]
-        \item \textbf{自反性.} 对任意 $x \in X$,
+    \item 下证 $R$ 是 $X$ 上的等价关系。只需证
+      \begin{itemize}
+        \item $R$ 是自反的。任取 $x \in X$,
           \[
-            f(x) = f(x).
+            f(x) = f(x) \implies (x, x) \in R.
           \]
-          故 $(x, x) \in R$, 即 $x R x$。
-
-        \item \textbf{对称性.} 对任意 $x, y \in X$, 若 $x R y$, 则
-          \[
-            f(x) = f(y).
-          \]
-          由等式的对称性,
-          \[
-            f(y) = f(x),
-          \]
-          故 $y R x$。
-
-        \item \textbf{传递性.} 对任意 $x, y, z \in X$, 若 $x R y$ 且 $y R z$, 则
-          \[
-            f(x) = f(y),
-            \qquad
-            f(y) = f(z).
-          \]
-          由等式的传递性,
-          \[
-            f(x) = f(z),
-          \]
-          故 $x R z$。
-      \end{enumerate}
-
-      因而 $R$ 具有自反性、对称性与传递性, 故 $R$ 是 $X$ 上的等价关系。
-
+        \item $R$ 是对称的。任取 $x_{1}, x_{2} \in X$,
+          \begin{align*}
+            & (x_{1}, x_{2}) \in R \\
+            \implies & f(x_{1}) = f(x_{2}) \\
+            \implies & f(x_{2}) = f(x_{1}) \\
+            \implies & (x_{2}, x_{1}) \in R.
+          \end{align*}
+        \item $R$ 是传递的。任取 $x_{1}, x_{2}, x_{3} \in X$,
+          \begin{align*}
+            & (x_{1}, x_{2}) \in R \land (x_{2}, x_{3}) \in R \\
+            \implies & f(x_{1}) = f(x_{2}) \land f(x_{2}) = f(x_{3}) \\
+            \implies & f(x_{1}) = f(x_{3}) \\
+            \implies & (x_{1}, x_{3}) \in R.
+          \end{align*}
+      \end{itemize}
     \item 下证 $h: X/R \to Y$ 是函数, 且是满射。
 
-      先证 $h$ 良定义。若
-      \[
-        [x]_R = [x']_R,
-      \]
-      则 $x' \in [x']_R = [x]_R$, 从而 $x R x'$。于是
-      \[
-        f(x) = f(x').
-      \]
-      故
-      \[
-        h([x]_R) = f(x) = f(x') = h([x']_R).
-      \]
-      这说明 $h([x]_R)$ 与代表元的选择无关。
-
-      又对任意 $[x]_R \in X/R$, 有 $x \in X$, 故
-      \[
-        h([x]_R) = f(x) \in Y.
-      \]
-      因而 $h$ 是从 $X/R$ 到 $Y$ 的函数。
-
-      再证 $h$ 是满射。任取 $y \in Y$, 由于 $f$ 是满射, 存在 $x \in X$ 使得
-      \[
-        f(x) = y.
-      \]
-      于是
-      \[
-        h([x]_R) = f(x) = y.
-      \]
-      故
-      \[
-        \forall y \in Y\; \exists [x]_R \in X/R\; h([x]_R) = y,
-      \]
-      即 $h$ 是满射。
+		  要证 $h$ 是函数, 只需证
+      \begin{itemize}
+        \item $\forall S \in X/R\; \exists y \in Y\; h(S) = y$。\\
+          设 $X/R = [x]_{R}$。取 $y = f(x)$ 即可。
+        \item $\forall S \in X/R\; \exists y_{1}, y_{2} \in Y\;
+          ((h(S) = y_{1} \land h(S) = y_{2}) \implies y_{1} = y_{2})$。\\
+          根据 $h$ 的定义,
+          \[
+            \exists x_{1} \in X\; ([x_{1}]_{R} = S \land f(x_{1}) = y_{1}),
+          \]
+          \[
+            \exists x_{2} \in X\; ([x_{2}]_{R} = S \land f(x_{2}) = y_{2}).
+          \]
+          因此,
+          \begin{align*}
+            & [x_{1}]_{R} = [x_{2}]_{R} \\
+            \implies & (x_{1}, x_{2}) \in R \\
+            \implies & f(x_{1}) = f(x_{2}) \\
+            \implies & y_{1} = y_{2}
+          \end{align*}
+      \end{itemize}
+      要证 $h$ 是满射, 只需证 $\forall y \in Y\; \exists S \in X/R\; h(S) = y$。\\
+      因为 $f$ 是满射, 对于任意 $y \in Y$, 存在 $x_{0}$, 使得 $f(x_{0}) = y$。
+      故, 取 $S = [x_{0}]_{R}$ 即可。
   \end{enumerate}
-
-  \begin{remark}
-    \textbf{重点.} 关系 $x R y \iff f(x) = f(y)$ 的本质是 ``被 $f$ 映到同一个值''。\par
-    \textbf{难点.} 第 (2) 问首先不是证满射, 而是证 $h([x]_R)=f(x)$ 不依赖代表元, 即良定义。\par
-    \textbf{易错点.} 不能由 $[x]_R = [x']_R$ 直接跳到 $x = x'$; 正确结论只是 $x R x'$, 进而 $f(x) = f(x')$。
-  \end{remark}
 \end{proof}
-
 %%%%%%%%%%%%%%%
 
 \begin{problem}[反函数]
