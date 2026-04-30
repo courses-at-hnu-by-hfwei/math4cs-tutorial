@@ -132,11 +132,11 @@
   \end{enumerate}
 \end{problem}
 
-\begin{proof}
-  \begin{intention}
-    先把拟序的 ``双向可比部分'' 提炼成等价关系, 再在商集上压缩掉这些等价元素, 从而得到偏序。后两问分别把这个抽象过程落实到整除关系与可达关系。
-  \end{intention}
+\begin{remark}
+	先把拟序的 ``双向可比部分'' 提炼成等价关系, 再在商集上压缩掉这些等价元素, 从而得到偏序。后两问分别把这个抽象过程落实到整除关系与可达关系。
+\end{remark}
 
+\begin{proof}
   \begin{enumerate}[(1)]
     \item 下证 $\sim$ 是 $X$ 上的等价关系。
 
@@ -443,11 +443,11 @@
   \noindent 请证明, $\subseteq$ 是 $Fn(X, Y)$ 上的偏序关系。
 \end{problem}
 
-\begin{proof}
-  \begin{intention}
-    将 $Fn(X, Y)$ 中的函数都看成有序对的集合, 则题目就退化为 ``集合包含关系在一个集合族上构成偏序''。
-  \end{intention}
+\begin{remark}
+	将 $Fn(X, Y)$ 中的函数都看成有序对的集合, 则题目就退化为 ``集合包含关系在一个集合族上构成偏序''。
+\end{remark}
 
+\begin{proof}
   任取 $f, g, h \in Fn(X, Y)$。由于每个函数本身都是有序对的集合, 故对它们讨论 $\subseteq$ 是有意义的。
 
   \begin{enumerate}[(1)]
@@ -478,6 +478,4 @@
         f \subseteq h.
       \]
   \end{enumerate}
-
-  因而 $\subseteq$ 在 $Fn(X, Y)$ 上满足自反性、反对称性与传递性, 故它是 $Fn(X, Y)$ 上的偏序关系。
 \end{proof}
