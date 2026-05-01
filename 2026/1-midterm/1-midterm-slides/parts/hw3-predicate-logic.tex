@@ -8,6 +8,18 @@
 \end{problem}
 
 \pause
+\begin{slidesolution}
+  \begin{itemize}
+    \item 点态连续（pointwise）与一致连续（uniform）形式化如下：
+      \begin{align*}
+        &\forall x\; \forall \epsilon>0\; \exists \delta>0\; \forall y\; (|x-y|<\delta \to |f(x)-f(y)|<\epsilon), \\
+        &\forall \epsilon>0\; \exists \delta>0\; \forall x,y\; (|x-y|<\delta \to |f(x)-f(y)|<\epsilon).
+      \end{align*}
+    \pause
+    \item 要点：一致连续的 $\delta$ 与点无关（只依赖于 $\epsilon$），因此一致连续严格强于点态连续。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{solution}
   取论域为 $\mathbb{R}$，分别可形式化为
   \begin{align*}
@@ -16,5 +28,6 @@
   \end{align*}
   从量词排列可知一致连续严格强于点态连续。
 \end{solution}
+}
 
 \end{frame}

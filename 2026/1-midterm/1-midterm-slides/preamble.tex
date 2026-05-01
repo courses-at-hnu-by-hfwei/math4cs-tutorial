@@ -194,6 +194,13 @@
 % use beamer's theorem/proof/problem environments if available
 \providecommand{\theproblem}{\arabic{problem}}
 % rely on beamer's built-in theorem/proof environments
+% Slide-style solution environment: concise block for on-screen slides
+\newenvironment{slidesolution}
+  {\begin{exampleblock}{解答}\small}
+  {\end{exampleblock}}
+
+% Helper to include full/detailed material only in handout builds
+\newcommand{\handoutonly}[1]{\mode<handout>{#1}}
 \newenvironment{intention}
   {\par\smallskip\noindent\textbf{命题意图. }\ignorespaces}
   {\par\smallskip}

@@ -7,20 +7,43 @@
 \end{problem}
 
 \pause
-\begin{solution}
-  取论域为 $\mathbb{R}^n$, 可写为
-  \[\phi \equiv \forall x\in U\; \exists \epsilon>0\; \forall y\in \mathbb{R}^n\; (d(y,x)<\epsilon \to y\in U).\]
-  因此
-  \[\lnot\phi \equiv \exists x\in U\; \forall \epsilon>0\; \exists y\in \mathbb{R}^n\; (d(y,x)<\epsilon \land y\notin U).\]
-\end{solution}
+\begin{slidesolution}
+  \begin{itemize}
+    \item 一阶形式化：取论域为 $\mathbb{R}^n$，开集定义写为
+      \[\phi \equiv \forall x\in U\; \exists \epsilon>0\; \forall y\in \mathbb{R}^n\; (d(y,x)<\epsilon \to y\in U).
+      \]
+    \pause
+    \item 否定形式为
+      \[\lnot\phi \equiv \exists x\in U\; \forall \epsilon>0\; \exists y\in \mathbb{R}^n\; (d(y,x)<\epsilon \land y\notin U),
+      \]
+      直观含义：存在一点 $x\in U$，对任意半径总能找到不属于 $U$ 的点。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
+  \begin{solution}
+    取论域为 $\mathbb{R}^n$, 可写为
+    \[\phi \equiv \forall x\in U\; \exists \epsilon>0\; \forall y\in \mathbb{R}^n\; (d(y,x)<\epsilon \to y\in U).\]
+    因此
+    \[\lnot\phi \equiv \exists x\in U\; \forall \epsilon>0\; \exists y\in \mathbb{R}^n\; (d(y,x)<\epsilon \land y\notin U).\]
+  \end{solution}
+}
 
 \pause
 \begin{problem}[语法: 替换]
   考察 $\phi \triangleq \forall x\,((\exists y\,P(x,y,z))\land (\forall z\,P(x,y,z)))$, 回答替换/自由-约束问题。
 \end{problem}
 
-\begin{solution}
-  请参见讲义: 标注自由/约束出现, 以及计算 $\phi[t/x]$, $\phi[t/y]$, $\phi[t/z]$ 等。
-\end{solution}
+\begin{slidesolution}
+  \begin{itemize}
+    \item 标注自由/约束：在 $\phi\triangleq\forall x\,((\exists y\,P(x,y,z))\land (\forall z\,P(x,y,z)))$ 中，注意内部量词对同名变元的绑定作用，外层 $\forall x$ 使 $x$ 在整个公式中为约束变元，而内部的 $y,z$ 在各自子公式中被绑定。
+    \pause
+    \item 替换示例：为计算 $\phi[t/x]$，需避免捕获 (capture)，若 $t$ 中含有与内部量词同名的变元, 先进行重命名。例如将内部的量词改名后再替换，最终结果按讲义规则得到。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
+  \begin{solution}
+    请参见讲义: 标注自由/约束出现, 以及计算 $\phi[t/x]$, $\phi[t/y]$, $\phi[t/z]$ 等。
+  \end{solution}
+}
 
 \end{frame}

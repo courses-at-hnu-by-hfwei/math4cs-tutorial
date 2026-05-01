@@ -7,17 +7,38 @@
 \end{problem}
 
 \pause
+\begin{slidesolution}
+  \begin{itemize}
+    \item 检查三条拓扑公理：空集与全集包含、任意并封闭、有限交封闭。
+    \pause
+    \item 说明要点：若每个 $U_i$ 的补 $X\setminus U_i$ 有限，则
+      $X\setminus(\bigcup_i U_i)=\bigcap_i (X\setminus U_i)$；对有限交有
+      $X\setminus(U\cap V)=(X\setminus U)\cup(X\setminus V)$，并集/并的补都是有限的，从而满足定义。
+    \pause
+    \item 因此 $\mathcal{T}_{\mathrm{cof}}$ 满足拓扑公理。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{solution}
   验证空集与全集在内, 任意并与有限交封闭; 详见讲义中的分步验证。
 \end{solution}
+}
 
 \pause
 \begin{problem}[商拓扑 (Quotient Topology)]
   设 $q:X\to X/\sim$, 定义 $\tau_{\sim}=\{U\subseteq X/\sim: q^{-1}(U)\in\tau\}$. 证明这是拓扑, 且 $q$ 连续与满射, 并证明商映射的唯一性与连续性。
 \end{problem}
-
+\begin{slidesolution}
+  \begin{itemize}
+    \item 先证明 $\tau_{\sim}$ 为拓扑：空集与全集的逆像分别为 $\emptyset$ 与 $X$；任意并/有限交在逆像下保持并/交，从而满足拓扑公理。
+    \pause
+    \item 对任意连续映射 $g:X\to Y$ 若存在 $\bar g$ 满足 $g=\bar g\circ q$，则可定义 $\bar g([x])=g(x)$。需验证良定义性（若 $[x]=[y]$ 则 $g(x)=g(y)$），以及 $\bar g$ 的连续性与唯一性。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{solution}
-  根据逆像与集合运算的交换性质证明拓扑公理; 构造 $\bar g([x])=g(x)$ 验证良定义、分解关系与连续性/唯一性。
+  根据逆像与集合運算的交換性質證明拓撲公理; 構造 $\bar g([x])=g(x)$ 驗證良定義、分解關係與連續性/唯一性。
 \end{solution}
+}
 
 \end{frame}

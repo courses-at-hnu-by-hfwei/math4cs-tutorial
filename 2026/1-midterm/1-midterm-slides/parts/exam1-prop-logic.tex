@@ -11,33 +11,24 @@
       \[\vdash ((p \to q) \to q) \to ((q \to p) \to p)\]
   \end{enumerate}
 \end{problem}
-
-\begin{logicproof}{4}
-\begin{subproof}
-(p \to q) \to q & assumption \\
-\begin{subproof}
-q \to p & assumption \\
-\begin{subproof}
-\lnot p & assumption \\
-\begin{subproof}
-p & assumption \\
-\bot & $\lnot\elim$ 3, 4 \\
-q & $\bot\elim$ 5
-\end{subproof}
-p \to q & $\to\intro$ 4--6 \\
-q & $\to\elim$ 1, 7 \\
-p & $\to\elim$ 2, 8 \\
-\bot & $\lnot\elim$ 3, 9
-\end{subproof}
-\lnot\lnot p & $\lnot\intro$ 3--10 \\
-p & $\lnot\lnot\elim$ 11
-\end{subproof}
-(q \to p) \to p & $\to\intro$ 2--12
-\end{subproof}
-((p \to q) \to q) \to ((q \to p) \to p) & $\to\intro$ 1--13
-\end{logicproof}
-
-\pause
+\begin{slidesolution}
+  \begin{itemize}
+    \item 关键思路：采用间接证明。假设 $(p\to q)\to q$ 且 $q\to p$，再假设 $\lnot p$，由此构造矛盾，从而推出 $p$，进而得到 $(q\to p)\to p$，完成证明。
+    \pause
+    \item 步骤概览：
+      \begin{enumerate}
+        \item 假设 $(p\to q)\to q$ 与 $q\to p$。
+        \item 假设 $\lnot p$，由前提构造矛盾，从而推出 $p$。
+        \item 恢复蕴含得到 $(q\to p)\to p$，进而得到目标公式。
+      \end{enumerate}
+  \end{itemize}
+\end{slidesolution}
+      \handoutonly{
+      \begin{solution}
+      完整的自然演绎分步证明已收录于讲义；要点是使用排中律分情况讨论，并在必要时用归谬法构造矛盾，逐步应用 $\lor$、$\land$、$\lnot$ 的引入与消除规则得到结论。
+      \end{solution}
+      }
+      \pause
 \begin{enumerate}[(1)]
   \setcounter{enumi}{2}
   \item (德摩根律)
@@ -82,5 +73,30 @@ p & $\lnot\lnot\elim$ 11
 
   在该推理系统中, 公式 $\alpha \to \alpha$ 的一种证明方式请参见讲义。
 \end{problem}
+
+\begin{slidesolution}
+  \begin{itemize}
+    \item 目标：从公理 (A1)、(A2) 与 MP 推出 $\alpha\to\alpha$。
+    \pause
+    \item 关键实例化与推理：
+      \begin{enumerate}
+        \item 由 (A1) 令 $\beta=(\alpha\to\alpha)$ 得到 $\alpha\to((\alpha\to\alpha)\to\alpha)$。
+        \pause
+        \item 取 (A2) 中 $\beta=(\alpha\to\alpha)$ 且 $\gamma=\alpha$，得
+          $(\alpha\to((\alpha\to\alpha)\to\alpha))\to((\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha))$。
+        \pause
+        \item 用 MP 于第 1、2 步得到 $(\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha)$，再由 (A1) (令 $\beta=\alpha$) 得 $\alpha\to(\alpha\to\alpha)$，再次应用 MP 得到 $\alpha\to\alpha$。
+      \end{enumerate}
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
+\begin{enumerate}
+  \item A1 (取 $\beta=(\alpha\to\alpha)$): $\alpha\to((\alpha\to\alpha)\to\alpha)$.
+  \item A2 (取 $\beta=(\alpha\to\alpha),\,\gamma=\alpha$): $(\alpha\to((\alpha\to\alpha)\to\alpha))\to((\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha))$.
+  \item 由 1、2 及 MP 得 $(\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha)$。
+  \item A1 (取 $\beta=\alpha$): $\alpha\to(\alpha\to\alpha)$。
+  \item 由 3、4 及 MP 得 $\alpha\to\alpha$。
+\end{enumerate}
+}
 
 \end{frame}

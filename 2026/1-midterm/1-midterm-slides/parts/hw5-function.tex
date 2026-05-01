@@ -7,17 +7,33 @@
 \end{problem}
 
 \pause
+\begin{slidesolution}
+  \begin{itemize}
+    \item $R$ 为等价关系：验证自反、对称、传递三性即可。
+    \pause
+    \item 构造商映射 $h([x])=f(x)$：需验证良定义性（若 $[x]=[y]$ 则 $f(x)=f(y)$），并说明 $h$ 为满射（对任意 $y\in Y$ 取 $x$ 使 $f(x)=y$）。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{proof}
   验证自反、对称、传递即可得到等价关系. 对第二问, 需验证 $h$ 良定义且为满射, 参考讲义给出的证明步骤。
 \end{proof}
+}
 
 \pause
 \begin{problem}[反函数]
   设 $f:A\to B$, $g:B\to A$, 证明 $(f\circ g=I_B \land g\circ f=I_A) \to g=f^{-1}$。
 \end{problem}
 
+\begin{slidesolution}
+  \begin{itemize}
+    \item 若 $f\circ g=I_B$ 且 $g\circ f=I_A$，则 $f$ 与 $g$ 为互为逆映射：由 $f\circ g=I_B$ 可见 $f$ 为满射，结合 $g\circ f=I_A$ 可得 $f$ 为单射，故 $f$ 为双射，其逆即为 $g$。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{proof}
   由复合等于恒等映射可证明 $f$ 为双射, 由此得到逆函数唯一且等于 $g$。
 \end{proof}
+}
 
 \end{frame}

@@ -7,17 +7,35 @@
 \end{problem}
 
 \pause
+\begin{slidesolution}
+  \begin{itemize}
+    \item 上确界（sup）：把所有相关等价关系并后取等价关系生成的划分作为上确界。
+    \pause
+    \item 下确界（inf）：由各划分的块的非空交所形成的划分为下确界。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{solution}
   上确界为把所有关系的等价关系并后的反身-对称-传递闭包对应的划分; 下确界为所有块的非空交的集合。详见讲义证明。
 \end{solution}
+}
 
 \pause
 \begin{problem}[拟序、等价关系、偏序]
   定义 $x\sim y \iff x\preceq y \land y\preceq x$, 证明 $\sim$ 为等价关系, 并构造商集的偏序。
 \end{problem}
 
+\begin{slidesolution}
+  \begin{itemize}
+    \item 验证 $\sim$ 为等价关系：直接从定义 $x\sim y\iff x\preceq y\land y\preceq x$ 检查自反、对称、传递。
+    \pause
+    \item 构造商集的偏序：定义 $[x]\preceq'[y]\iff x\preceq y$，需验证良定义性（若 $[x]=[x']$ 与 $[y]=[y']$ 则关系不变）以及偏序三条公理。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{solution}
   见讲义: 验证自反/对称/传递, 良定义性以及偏序三条公理。
 \end{solution}
+}
 
 \end{frame}

@@ -7,16 +7,27 @@
   $x$ 都可以在 $\alpha$ 中无冲突地替换自己。
 \end{problem}
 \pause
+\pause
+\begin{slidesolution}
+  \begin{itemize}
+    \item 命题说明：对任意公式 $\alpha$ 与变元 $x$, 可在 $\alpha$ 中无冲突地替换 $x$（避免量词捕获）。
+    \pause
+    \item 证明思路：对公式 $\alpha$ 作结构归纳。
+      \begin{enumerate}
+        \item 基础：原子公式情形显然成立。
+        \pause
+        \item 归纳：对否定/复合用归纳假设；对量词若替换项含有与内层量词同名的变量，先重命名内层量词再替换，避免捕获。
+      \end{enumerate}
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{solution}
   证明命题:
   \[P(\alpha): \text{对任意变元 } x,\; x \text{ 都可以在 } \alpha \text{ 中无冲突地替换 } x.\]
 
-  对公式 $\alpha$ 作结构归纳。
-
-  \textbf{基础情况.} 若 $\alpha$ 是原子公式, 则按 ``无冲突替换'' 的定义, 基本成立。
-
-  \textbf{归纳步骤.} 请参见讲义中的详细归纳论证, 分为否定、复合、量词三种情形。
+  对公式 $\alpha$ 作结构归纳。基础情形与归纳步骤详见讲义: 在量词情形若替换项含与内层量词同名变量需先重命名再替换。
 \end{solution}
+}
 
 \pause
 \begin{problem}[一阶谓词逻辑: 前束范式]
@@ -24,9 +35,24 @@
   \[\forall x\; \exists y\; P(x, y) \to \exists x\; Q(x).\]
 \end{problem}
 
+\begin{slidesolution}
+  \begin{itemize}
+    \item 将公式 $(\forall x\exists y\,P(x,y))\to(\exists x\,Q(x))$ 化为前束范式的要点：消除蕴含、把否定推进到原子、重命名、移出量词。
+    \pause
+    \item 具体化简：
+      \begin{enumerate}
+        \item 原式等价于 $\neg(\forall x\exists y\,P(x,y))\lor(\exists x\,Q(x))$。
+        \item $\neg\forall x\exists y\,P(x,y)\equiv\exists x\forall y\,\neg P(x,y)$，将第二个 $\exists x$ 重命名为 $\exists z$。
+        \item 合并量词并调整顺序得到前束形式 $\exists x\exists z\forall y\,(\neg P(x,y)\lor Q(z))$，即
+          \[\exists x\exists z\forall y\,(P(x,y)\to Q(z)).\]
+      \end{enumerate}
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{solution}
   先重命名, 再依规则 R5, R6, R4 进行迁移, 可得前束范式:
-  \[\exists x\; \forall y\; \exists z\; (P(x, y) \to Q(z)).\]
+  \[\exists x\; \exists z\; \forall y\; (P(x, y) \to Q(z)).\]
 \end{solution}
+}
 
 \end{frame}

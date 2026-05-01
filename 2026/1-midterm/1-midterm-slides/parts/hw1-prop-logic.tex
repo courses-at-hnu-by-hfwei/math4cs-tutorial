@@ -1,18 +1,14 @@
 % hw1-prop-logic.tex (slides)
-
 \begin{frame}[allowframebreaks]{作业 1：命题逻辑}
-
-\begin{problem}[命题逻辑的自然推理系统]
-  请使用自然推理规则证明以下结论:
-  \begin{enumerate}[(1)]
-    \setcounter{enumi}{4}
-    \item
-      
-      \[\vdash (\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma))\]
-  \end{enumerate}
-\end{problem}
 \pause
-
+\begin{slidesolution}
+  \begin{itemize}
+    \item 关键思路：在假设 $\alpha\to(\beta\to\gamma)$ 与 $\alpha\to\beta$ 的条件下，假设 $\alpha$，由两条假设依次消解得到 $\gamma$，再用 $\to\intro$ 恢复蕴含链，归纳得到原式。
+    \pause
+    \item 步骤概览：先假设 $\alpha$，由 $\alpha\to(\beta\to\gamma)$ 得 $\beta\to\gamma$，由 $\alpha\to\beta$ 得 $\beta$，由此得 $\gamma$；然后依次用 $\to\intro$ 得到目标蕴含。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{logicproof}{3}
 \begin{subproof}
 \alpha \to (\beta \to \gamma) & assumption \\
@@ -20,17 +16,17 @@
 \alpha \to \beta & assumption \\
 \begin{subproof}
 \alpha & assumption \\
-\beta \to \gamma & $\to\elim$ 1, 3 \\
-\beta & $\to\elim$ 2, 3 \\
-\gamma & $\to\elim$ 4, 5
+\beta \to \gamma & `$\to\elim$ 1, 3 \\
+\beta & `$\to\elim$ 2, 3 \\
+\gamma & `$\to\elim$ 4, 5
 \end{subproof}
-\alpha \to \gamma & $\to\intro$ 3--6
+\alpha \to \gamma & `$\to\intro$ 3--6
 \end{subproof}
-(\alpha \to \beta) \to (\alpha \to \gamma) & $\to\intro$ 2--7
+(\alpha \to \beta) \to (\alpha \to \gamma) & `$\to\intro$ 2--7
 \end{subproof}
-(\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma)) & $\to\intro$ 1--8
+(\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma)) & `$\to\intro$ 1--8
 \end{logicproof}
-
+}
 \pause
 \begin{enumerate}[(1)]
   \setcounter{enumi}{5}
@@ -38,6 +34,14 @@
     \[\vdash (\lnot \beta \to \lnot \alpha) \to ((\lnot \beta \to \alpha) \to \beta)\]
 \end{enumerate}
 
+\begin{slidesolution}
+  \begin{itemize}
+    \item 关键思路：采用间接证明；在假设 $\lnot\beta\to\lnot\alpha$ 和 $\lnot\beta\to\alpha$ 的前提下，再假设 $\lnot\beta$，由两条假设分别导出 $\lnot\alpha$ 与 $\alpha$，从而产生矛盾，得到 $\beta$。
+    \pause
+    \item 步骤概览：假设 $\lnot\beta$，由两条假设分别得到 $\lnot\alpha$ 与 $\alpha$，矛盾成立，则推出 $\lnot\lnot\beta$ 并用双否消去得 $\beta$，恢复所需蕴含。
+  \end{itemize}
+\end{slidesolution}
+\handoutonly{
 \begin{logicproof}{4}
 \begin{subproof}
 \lnot\beta \to \lnot\alpha & assumption \\
@@ -45,16 +49,17 @@
 \lnot\beta \to \alpha & assumption \\
 \begin{subproof}
 \lnot\beta & assumption \\
-\lnot\alpha & $\to\elim$ 1, 3 \\
-\alpha & $\to\elim$ 2, 3 \\
-\bot & $\lnot\elim$ 4, 5
+\lnot\alpha & `$\to\elim$ 1, 3 \\
+\alpha & `$\to\elim$ 2, 3 \\
+\bot & `$\lnot\elim$ 4, 5
 \end{subproof}
-\lnot\lnot\beta & $\lnot\intro$ 3--6 \\
-\beta & $\lnot\lnot\elim$ 7
+\lnot\lnot\beta & `$\lnot\intro$ 3--6 \\
+\beta & `$\lnot\lnot\elim$ 7
 \end{subproof}
-(\lnot\beta \to \alpha) \to \beta & $\to\intro$ 2--8
+(\lnot\beta \to \alpha) \to \beta & `$\to\intro$ 2--8
 \end{subproof}
-(\lnot\beta \to \lnot\alpha) \to ((\lnot\beta \to \alpha) \to \beta) & $\to\intro$ 1--9
+(\lnot\beta \to \lnot\alpha) \to ((\lnot\beta \to \alpha) \to \beta) & `$\to\intro$ 1--9
 \end{logicproof}
+}
 
 \end{frame}
