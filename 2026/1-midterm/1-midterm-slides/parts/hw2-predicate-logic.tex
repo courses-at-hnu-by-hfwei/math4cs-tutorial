@@ -5,54 +5,119 @@
 \begin{problem}[一阶谓词逻辑: 替换]
   请证明, 对于任意公式 $\alpha$ 与其中的任意变元 $x$,
   $x$ 都可以在 $\alpha$ 中无冲突地替换自己。
+
+  \noindent (提示: 虽然该结论看上去很显然, 但请考虑如何以规范的方式证明它。
+  你不能说 "显然成立" 或 "不难看出" 等等。)
 \end{problem}
-\pause
-\pause
-\begin{slidesolution}
-  \begin{itemize}
-    \item 命题说明：对任意公式 $\alpha$ 与变元 $x$, 可在 $\alpha$ 中无冲突地替换 $x$（避免量词捕获）。
-    \pause
-    \item 证明思路：对公式 $\alpha$ 作结构归纳。
-      \begin{enumerate}
-        \item 基础：原子公式情形显然成立。
-        \pause
-        \item 归纳：对否定/复合用归纳假设；对量词若替换项含有与内层量词同名的变量，先重命名内层量词再替换，避免捕获。
-      \end{enumerate}
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
+
 \begin{solution}
   证明命题:
-  \[P(\alpha): \text{对任意变元 } x,\; x \text{ 都可以在 } \alpha \text{ 中无冲突地替换 } x.\]
+  \[
+    P(\alpha): \text{对任意变元 } x,\; x \text{ 都可以在 } \alpha \text{ 中无冲突地替换 } x.
+  \]
 
-  对公式 $\alpha$ 作结构归纳。基础情形与归纳步骤详见讲义: 在量词情形若替换项含与内层量词同名变量需先重命名再替换。
+  对公式 $\alpha$ 作结构归纳。
+
+  \textbf{基础情况.}
+  若 $\alpha$ 是原子公式, 则按 "无冲突替换" 的定义,
+  原子公式情形无附加条件, 故对任意变元 $x$,
+  $x$ 都可以在 $\alpha$ 中无冲突地替换 $x$。
+
+  \textbf{归纳步骤.}
+
+  \begin{enumerate}[(1)]
+    \item 若 $\alpha = \lnot \psi$,
+      且归纳假设表明 $P(\psi)$ 成立,
+      则对任意变元 $x$,
+      $x$ 可以在 $\psi$ 中无冲突地替换 $x$。
+      由定义,
+      $x$ 也可以在 $\lnot \psi$ 中无冲突地替换 $x$。
+
+    \item 若 $\alpha = \psi \ast \gamma$,
+      其中 $\ast \in \{\land, \lor, \to, \leftrightarrow\}$,
+      且归纳假设表明 $P(\psi)$ 与 $P(\gamma)$ 都成立,
+      则对任意变元 $x$,
+      $x$ 在 $\psi$ 与 $\gamma$ 中都可以无冲突地替换自己。
+      由定义,
+      $x$ 也可以在 $\psi \ast \gamma$ 中无冲突地替换 $x$。
+
+    \item 若 $\alpha = \forall y\; \psi$ 或 $\alpha = \exists y\; \psi$,
+      固定任意变元 $x$。
+
+      \begin{enumerate}[(a)]
+        \item 若 $x = y$, 则 $x$ 在 $\forall/\exists x\; \psi$ 中不自由出现,
+          故按定义中的条件 (a),
+          $x$ 可以在 $\forall/\exists x\; \psi$ 中无冲突地替换 $x$。
+
+        \item 若 $x \neq y$, 则变元 $y$ 不在代入项 $x$ 中出现,
+          且由归纳假设, $x$ 可以在 $\psi$ 中无冲突地替换 $x$。
+          因而按定义中的条件 (b),
+          $x$ 可以在 $\forall/\exists y\; \psi$ 中无冲突地替换 $x$。
+      \end{enumerate}
+  \end{enumerate}
+  综上, $P(\alpha)$ 对任意公式 $\alpha$ 都成立。
 \end{solution}
-}
 
-\pause
 \begin{problem}[一阶谓词逻辑: 前束范式]
-  将以下公式化归成前束范式:
-  \[\forall x\; \exists y\; P(x, y) \to \exists x\; Q(x).\]
+  对于任意的命题逻辑公式,
+  我们在上次作业中介绍了如何将其化归成合取范式或析取范式。
+  类似地, 对于任意的一阶谓词逻辑公式,
+  我们也可以将其化归成前束范式 (prenex normal form),
+  即"所有量词都出现在公式最前面"的形式。
+
+  准确地说, 称具有以下形式的公式为前束范式:
+  \[
+    Q_1 x_1\; Q_2 x_2\; \cdots\; Q_n x_n\; \alpha
+  \]
+  其中, 每个 $Q_i$ 都是 $\forall$ 或 $\exists$,
+  并且 $\alpha$ 中无量词。
+
+  可以利用下列规则进行量词操作, 将任意的一阶谓词逻辑公式化归成前束范式:
+  \begin{enumerate}
+    \item[(R1)] $\lnot \forall x\; \alpha \equiv \exists x\; \lnot \alpha$;
+    \item[(R2)] $\lnot \exists x\; \alpha \equiv \forall x\; \lnot \alpha$;
+    \item[(R3)] $\alpha \to \forall x\; \beta \equiv \forall x\; (\alpha \to \beta)$,
+      其中 $x$ 不在 $\alpha$ 中自由出现;
+    \item[(R4)] $\alpha \to \exists x\; \beta \equiv \exists x\; (\alpha \to \beta)$,
+      其中 $x$ 不在 $\alpha$ 中自由出现;
+    \item[(R5)] $(\forall x\; \alpha) \to \beta \equiv \exists x\; (\alpha \to \beta)$,
+      其中 $x$ 不在 $\beta$ 中自由出现;
+    \item[(R6)] $(\exists x\; \alpha) \to \beta \equiv \forall x\; (\alpha \to \beta)$,
+      其中 $x$ 不在 $\beta$ 中自由出现.
+  \end{enumerate}
+
+  请利用以上规则将以下公式化归成前束范式,
+  并给出每一步使用的规则:
+  \[
+    \forall x\; \exists y\; P(x, y) \to \exists x\; Q(x).
+  \]
+
+  (提示: 答案可能不唯一)
 \end{problem}
 
-\begin{slidesolution}
-  \begin{itemize}
-    \item 将公式 $(\forall x\exists y\,P(x,y))\to(\exists x\,Q(x))$ 化为前束范式的要点：消除蕴含、把否定推进到原子、重命名、移出量词。
-    \pause
-    \item 具体化简：
-      \begin{enumerate}
-        \item 原式等价于 $\neg(\forall x\exists y\,P(x,y))\lor(\exists x\,Q(x))$。
-        \item $\neg\forall x\exists y\,P(x,y)\equiv\exists x\forall y\,\neg P(x,y)$，将第二个 $\exists x$ 重命名为 $\exists z$。
-        \item 合并量词并调整顺序得到前束形式 $\exists x\exists z\forall y\,(\neg P(x,y)\lor Q(z))$，即
-          \[\exists x\exists z\forall y\,(P(x,y)\to Q(z)).\]
-      \end{enumerate}
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
 \begin{solution}
-  先重命名, 再依规则 R5, R6, R4 进行迁移, 可得前束范式:
-  \[\exists x\; \exists z\; \forall y\; (P(x, y) \to Q(z)).\]
+  先对右侧量词中的束缚变元换名:
+  \[
+    \forall x\; \exists y\; P(x, y) \to \exists x\; Q(x)
+    \equiv
+    \forall x\; \exists y\; P(x, y) \to \exists z\; Q(z).
+  \]
+
+  下面开始化归:
+  \begin{align*}
+    \forall x\; \exists y\; P(x, y) \to \exists z\; Q(z)
+      &\equiv \exists x\; \big(\exists y\; P(x, y) \to \exists z\; Q(z)\big)
+        && \text{(R5; $x$ 不在 $\exists z\; Q(z)$ 中自由出现)} \\
+      &\equiv \exists x\; \forall y\; \big(P(x, y) \to \exists z\; Q(z)\big)
+        && \text{(R6; $y$ 不在 $\exists z\; Q(z)$ 中自由出现)} \\
+      &\equiv \exists x\; \forall y\; \exists z\; \big(P(x, y) \to Q(z)\big)
+        && \text{(R4; $z$ 不在 $P(x, y)$ 中自由出现)}.
+  \end{align*}
+
+  因而可取其前束范式为
+  \[
+    \boxed{\exists x\; \forall y\; \exists z\; \big(P(x, y) \to Q(z)\big)}.
+  \]
 \end{solution}
-}
 
 \end{frame}

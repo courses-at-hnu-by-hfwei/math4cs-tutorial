@@ -1,44 +1,176 @@
-% exam3-set-theory.tex (slides)
+% exam3-set-theory.tex (slides) -- full solutions embedded from notes
 
 \begin{frame}[allowframebreaks]{测验 3：集合论}
 
 \begin{problem}[余有限拓扑 (Cofinite Topology)]
-  设 $X$ 非空, 定义 $\mathcal{T}_{\mathrm{cof}}=\{\emptyset\}\cup\{U\subseteq X: X\setminus U\text{ 有限}\}$. 证明 $\mathcal{T}_{\mathrm{cof}}$ 为拓扑。
+  设 $X$ 是一个非空集合。定义
+  \[
+    \mathcal{T}_{\mathrm{cof}} =
+    \{\emptyset\} \cup \{U \subseteq X:\;
+      X \setminus U \text{ 是有限集}\}\text{。}
+  \]
+  请证明: $\mathcal{T}_{\mathrm{cof}}$ 是 $X$ 上的一个拓扑。
 \end{problem}
 
-\pause
-\begin{slidesolution}
-  \begin{itemize}
-    \item 检查三条拓扑公理：空集与全集包含、任意并封闭、有限交封闭。
-    \pause
-    \item 说明要点：若每个 $U_i$ 的补 $X\setminus U_i$ 有限，则
-      $X\setminus(\bigcup_i U_i)=\bigcap_i (X\setminus U_i)$；对有限交有
-      $X\setminus(U\cap V)=(X\setminus U)\cup(X\setminus V)$，并集/并的补都是有限的，从而满足定义。
-    \pause
-    \item 因此 $\mathcal{T}_{\mathrm{cof}}$ 满足拓扑公理。
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
 \begin{solution}
-  验证空集与全集在内, 任意并与有限交封闭; 详见讲义中的分步验证。
+  \begin{itemize}
+    \item 根据定义，$\emptyset\in \mathcal{T}_{\mathrm{cof}}$。
+    \item 因为 $X \setminus X = \emptyset$ 是有限集,
+      所以 $X \in \mathcal{T}_{\mathrm{cof}}$。
+    \item 设 $\{U_i: i \in I\} \subseteq \mathcal{T}_{\mathrm{cof}}$。
+      如果 $\forall i \in I\; U_i = \emptyset$，则
+      \[
+        \bigcup_{i\in I}U_i=\emptyset
+          \in \mathcal{T}_{\mathrm{cof}}\text{。}
+      \]
+      否则，$\exists i \in I\; U_{i_0} \neq \emptyset$。
+      任取 $i_{0} \in I$ 使得 $U_{i_0} \neq \emptyset$,
+      则 $X \setminus U_{i_0}$ 是有限集。
+      因此，
+      \[
+        X \setminus \bigcup_{i\in I} U_i
+        =
+        \bigcap_{i\in I}(X\setminus U_i) \subseteq X\setminus U_{i_0}
+      \]
+      是有限集。故,
+      \[
+        \bigcup_{i\in I}U_i\in \mathcal{T}_{\mathrm{cof}}\text{。}
+      \]
+    \item 设 $U_1, \dots, U_n \in \mathcal{T}_{\mathrm{cof}}$, 则
+      \[
+        X \setminus \bigcap_{k=1}^{n} U_k
+        =
+        \bigcup_{k=1}^{n}(X\setminus U_k)\text{。}
+      \]
+      右边是有限个有限集的并，因此仍是有限集。故,
+      \[
+        \bigcap_{k=1}^{n}U_k\in \mathcal{T}_{\mathrm{cof}}\text{。}
+      \]
+  \end{itemize}
 \end{solution}
-}
 
-\pause
+\vspace{1ex}
 \begin{problem}[商拓扑 (Quotient Topology)]
-  设 $q:X\to X/\sim$, 定义 $\tau_{\sim}=\{U\subseteq X/\sim: q^{-1}(U)\in\tau\}$. 证明这是拓扑, 且 $q$ 连续与满射, 并证明商映射的唯一性与连续性。
+  设 $(X, \tau)$ 是一个拓扑空间，$\sim$ 是 $X$ 上的一个等价关系。
+  记
+  \[
+    q: X \to X/\sim, \qquad q(x) = [x]\text{。}
+  \]
+  在商集 $X/\sim$ 上定义集合族
+  \[
+    \tau_{\sim} =
+    \{U \subseteq X/{\sim}: q^{-1}(U) \in \tau\}\text{。}
+  \]
+
+  \begin{enumerate}[(1)]
+    \item 请证明: $\tau_{\sim}$ 是 $X/\sim$ 上的一个拓扑。
+    \item 请证明 $q: (X, \tau) \to (X/\sim, \tau_{\sim})$
+      是满射, 且是连续映射。
+    \item 设 $(Y, \sigma)$ 是一个拓扑空间，$g: X \to Y$ 是连续映射，并且满足
+      \[
+        x \sim y \Rightarrow g(x) = g(y).
+      \]
+      请证明: 存在唯一的连续映射
+      \[
+        \bar{g}: (X/\sim, \tau_{\sim}) \to (Y, \sigma),
+      \]
+      使得
+      \[
+        g = \bar{g} \circ q\text{。}
+      \]
+  \end{enumerate}
 \end{problem}
-\begin{slidesolution}
-  \begin{itemize}
-    \item 先证明 $\tau_{\sim}$ 为拓扑：空集与全集的逆像分别为 $\emptyset$ 与 $X$；任意并/有限交在逆像下保持并/交，从而满足拓扑公理。
-    \pause
-    \item 对任意连续映射 $g:X\to Y$ 若存在 $\bar g$ 满足 $g=\bar g\circ q$，则可定义 $\bar g([x])=g(x)$。需验证良定义性（若 $[x]=[y]$ 则 $g(x)=g(y)$），以及 $\bar g$ 的连续性与唯一性。
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
+
 \begin{solution}
-  根据逆像与集合運算的交換性質證明拓撲公理; 構造 $\bar g([x])=g(x)$ 驗證良定義、分解關係與連續性/唯一性。
+  \begin{enumerate}[(1)]
+    \item 验证拓扑的定义。
+      \begin{itemize}
+        \item
+          \[
+            q^{-1}(\emptyset)=\emptyset\in \tau,
+            \qquad
+            q^{-1}(X/{\sim})=X\in \tau\text{。}
+          \]
+          所以
+          \[
+            \emptyset,\ X/{\sim}\in \tau_{\sim}\text{。}
+          \]
+        \item 若 $\{U_i: i \in I\} \subseteq \tau_{\sim}$,
+          则对每个 $i$ 都有 $q^{-1}(U_i) \in \tau$, 并且
+          \[
+            q^{-1}\!\left(\bigcup_{i\in I}U_i\right)
+            =
+            \bigcup_{i\in I}q^{-1}(U_i) \in \tau\text{。}
+          \]
+          故
+          \[
+            \bigcup_{i\in I}U_i\in \tau_{\sim}\text{。}
+          \]
+        \item 若 $U_1,\dots,U_n\in \tau_{\sim}$，则
+          \[
+            q^{-1}\!\left(\bigcap_{k=1}^{n}U_k\right)
+            =
+            \bigcap_{k=1}^{n}q^{-1}(U_k) \in \tau\text{。}
+          \]
+          故
+          \[
+            \bigcap_{k=1}^{n}U_k\in \tau_{\sim}\text{。}
+          \]
+      \end{itemize}
+    \item 先证满射。任取 $X/{\sim}$ 中的元素，它是某个等价类 $[x]$，而
+      \[
+        q(x) = [x]\text{。}
+      \]
+      所以 $q$ 是满射。
+
+      再证连续。任取 $U\in \tau_{\sim}$。由定义，
+      \[
+        q^{-1}(U)\in \tau\text{。}
+      \]
+      根据连续性的定义，$q$ 连续。
+    \item 先定义
+      \[
+        \bar g([x])=g(x)\text{。}
+      \]
+      \begin{itemize}
+        \item 证明其良定义。
+          若 $[x]=[y]$，则 $x\sim y$，从而 $g(x)=g(y)$。故 $\bar g$ 良定义。
+        \item 验证分解关系。
+          对任意 $x\in X$,
+          \[
+            (\bar g\circ q)(x)=\bar g([x])=g(x),
+          \]
+          故
+          \[
+            g=\bar g\circ q\text{。}
+          \]
+        \item 证明唯一性。
+          若还有映射 $h:X/{\sim}\to Y$ 满足 $g=h\circ q$，则对任意 $[x]\in X/{\sim}$，
+          \[
+            h([x])=h(q(x))=g(x)=\bar g([x])\text{。}
+          \]
+          因此 $h = \bar g$。
+        \item 证明连续性。
+          任取 $V\in \sigma$。由于 $g$ 连续，
+          \[
+            g^{-1}(V)\in \tau\text{。}
+          \]
+          即，
+          \[
+            g^{-1}(V)
+            =
+            (\bar g\circ q)^{-1}(V)
+            =
+            q^{-1}(\bar g^{-1}(V))
+            \in \tau\text{。}
+          \]
+          由 $\tau_{\sim}$ 的定义，得到
+          \[
+            \bar g^{-1}(V)\in \tau_{\sim}\text{。}
+          \]
+          所以 $\bar g$ 连续。
+      \end{itemize}
+  \end{enumerate}
 \end{solution}
-}
 
 \end{frame}

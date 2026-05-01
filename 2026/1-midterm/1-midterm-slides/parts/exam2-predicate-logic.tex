@@ -3,47 +3,176 @@
 \begin{frame}[allowframebreaks]{测验 2：谓词逻辑}
 
 \begin{problem}[一阶谓词逻辑公式]
-  将 ``开集'' 的定义翻译成一阶谓词逻辑公式 $\phi$, 并写出 $\lnot\phi$。
+  考虑如下欧式空间 $\mathbb{R}^{n}$ 中``开集'' (Open Set) 的定义:
+
+  "A subset $U$ of the Euclidean $n$-space $\mathbb{R}^{n}$
+    is {\it open} if, for every point $x$ in $U$,
+    there exists a positive real number $\epsilon$
+    (depending on $x$) such that any point in $\mathbb{R}^{n}$
+    whose Euclidean distance from $x$ is smaller than $\epsilon$
+    belongs to $U$."
+
+  \begin{enumerate}[(1)]
+    \item 请将"Open Set"（开集）的定义翻译成一阶谓词逻辑公式,
+      记为 $\phi$。
+      请自行选择论域（全集 Universe）、谓词符号和函数符号, 并请说明它们的含义。
+      \begin{solution}
+        取论域 $|\mathcal{M}|=\R^{n} \cup \R$。
+        \[
+          \phi \triangleq
+          \forall x \in U \;\exists \epsilon \in \R^{+}\;
+            \forall y \in \R^{n}\;
+            \bigl(d(y,x) < \epsilon \to y \in U\bigr).
+        \]
+      \end{solution}
+    \item 请给出 $\lnot \phi$ 公式。
+      \begin{solution}
+        \[
+          \begin{aligned}
+            \lnot\phi
+              \equiv \exists x \in U \;\forall \epsilon \in \R^{+}\;\exists y \in \R^{n}\;
+              \bigl(d(y,x) < \epsilon \land y \notin U\bigr).
+          \end{aligned}
+        \]
+      \end{solution}
+  \end{enumerate}
 \end{problem}
 
-\pause
-\begin{slidesolution}
-  \begin{itemize}
-    \item 一阶形式化：取论域为 $\mathbb{R}^n$，开集定义写为
-      \[\phi \equiv \forall x\in U\; \exists \epsilon>0\; \forall y\in \mathbb{R}^n\; (d(y,x)<\epsilon \to y\in U).
-      \]
-    \pause
-    \item 否定形式为
-      \[\lnot\phi \equiv \exists x\in U\; \forall \epsilon>0\; \exists y\in \mathbb{R}^n\; (d(y,x)<\epsilon \land y\notin U),
-      \]
-      直观含义：存在一点 $x\in U$，对任意半径总能找到不属于 $U$ 的点。
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
-  \begin{solution}
-    取论域为 $\mathbb{R}^n$, 可写为
-    \[\phi \equiv \forall x\in U\; \exists \epsilon>0\; \forall y\in \mathbb{R}^n\; (d(y,x)<\epsilon \to y\in U).\]
-    因此
-    \[\lnot\phi \equiv \exists x\in U\; \forall \epsilon>0\; \exists y\in \mathbb{R}^n\; (d(y,x)<\epsilon \land y\notin U).\]
-  \end{solution}
-}
+\begin{problem}[一阶谓词逻辑的语法: 替换]
+  考虑如下公式 $\phi$:
+  \[
+    \phi \triangleq \forall x\, ((\exists y\, P(x, y, z)) \land (\forall z\, P(x, y, z))).
+  \]
+  其中, $P$ 是三元谓词符号。
+  请回答以下问题:
 
-\pause
-\begin{problem}[语法: 替换]
-  考察 $\phi \triangleq \forall x\,((\exists y\,P(x,y,z))\land (\forall z\,P(x,y,z)))$, 回答替换/自由-约束问题。
+  \begin{enumerate}[(a)]
+    \item 指出变元 $y$ 的所有自由出现和约束出现。
+      \begin{solution}
+        将 $y$ 的出现标出:
+        \[
+          \phi = \forall x\, \bigl((\exists y\, P(x, \blue{y}, z)) \land (\forall z\, P(x, \red{y}, z))\bigr).
+        \]
+        因此:
+        \begin{align*}
+          &\text{约束出现: } \exists y\, P(x, \blue{y}, z) \text{ 中的 } y; \\
+          &\text{自由出现: } \forall z\, P(x, \red{y}, z) \text{ 中的 } y.
+        \end{align*}
+      \end{solution}
+    \item 令 $t \triangleq g(f(g(y, y)), y)$,
+      分别计算 $\phi[t/x]$, $\phi[t/y]$ 与 $\phi[t/z]$。
+      \begin{solution}
+        记
+        \[
+          t = g(f(g(y, y)), y).
+        \]
+        则
+        \begin{align*}
+          \phi[t/x]
+            &= \forall x\, ((\exists y\, P(x, y, z)) \land (\forall z\, P(x, y, z))), \\
+          \phi[t/y]
+            &= \forall x\, \Bigl((\exists y\, P(x, y, z)) \land
+              (\forall z\, P(x, g(f(g(y, y)), y), z))\Bigr), \\
+          \phi[t/z]
+            &= \forall x\, \Bigl((\exists y\, P(x, y, g(f(g(y, y)), y))) \land
+              (\forall z\, P(x, y, z))\Bigr).
+        \end{align*}
+        其中 $\phi[t/x] = \phi$, 因為 $x$ 在 $\phi$ 中没有自由出现。
+      \end{solution}
+    \item 分別判断上述 $t$ 在 $\phi$ 中是否可无冲突地替换 $x$、$y$ 与 $z$;
+      对于不可无冲突替换的情况, 请说明理由。
+      \begin{solution}
+        \begin{enumerate}[(i)]
+          \item $t$ 对 $x$ 可无冲突替换: $x$ 在 $\phi$ 中无自由出现, 因而不会发生变量捕获;
+          \item $t$ 对 $y$ 可无冲突替换: 唯一要替换的自由出现位于 $\forall z\, P(x, y, z)$ 中; 而 $t$ 的自由变元只有 $y$, 不会被 $\forall z$ 捕获。
+          \item $t$ 对 $z$ 不可无冲突替换: 要替换的自由出现位于 $\exists y\, P(x, y, z)$ 中; 但 $t$ 含有自由变元 $y$, 替换后会落入 $\exists y$ 的作用域, 从而使 $t$ 中的 $y$ 被捕获。
+        \end{enumerate}
+      \end{solution}
+  \end{enumerate}
 \end{problem}
 
-\begin{slidesolution}
-  \begin{itemize}
-    \item 标注自由/约束：在 $\phi\triangleq\forall x\,((\exists y\,P(x,y,z))\land (\forall z\,P(x,y,z)))$ 中，注意内部量词对同名变元的绑定作用，外层 $\forall x$ 使 $x$ 在整个公式中为约束变元，而内部的 $y,z$ 在各自子公式中被绑定。
-    \pause
-    \item 替换示例：为计算 $\phi[t/x]$，需避免捕获 (capture)，若 $t$ 中含有与内部量词同名的变元, 先进行重命名。例如将内部的量词改名后再替换，最终结果按讲义规则得到。
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
-  \begin{solution}
-    请参见讲义: 标注自由/约束出现, 以及计算 $\phi[t/x]$, $\phi[t/y]$, $\phi[t/z]$ 等。
-  \end{solution}
-}
+\begin{problem}[一阶谓词逻辑公式的语义]
+  考虑公式 $\phi \triangleq \forall x\, \forall y\, \exists z\, (R(x, y) \to R(y, z))$,
+  其中 $R$ 是二元谓词符号。
+  请判断下列结构 $\mathcal{M}$ 是否满足 $\phi$,
+  并说明理由:
+  \begin{enumerate}[(1)]
+    \item 令 $|\mathcal{M}| = \{a, b, c, d\}$ 且
+      $R^{\mathcal{M}} = \{(b, c), (b, b), (b, a)\}$。
+      \begin{solution}
+        取
+        \[
+          x = b, \qquad y = c.
+        \]
+        则
+        \[
+          R^{\mathcal{M}}(b, c) \text{ 为真}.
+        \]
+        因而
+        \[
+          \exists z\, (R(b, c) \to R(c, z))
+        \]
+        等价于
+        \[
+          \exists z\, R(c, z).
+        \]
+        但由
+        \[
+          R^{\mathcal{M}} = \{(b, c), (b, b), (b, a)\}
+        \]
+        可知不存在任何 $z \in |\mathcal{M}|$ 使得 $(c, z) \in R^{\mathcal{M}}$。
+        故
+        \[
+          \mathcal{M} \not\models \phi.
+        \]
+      \end{solution}
+    \item 令 $|\mathcal{M}| = \{a, b, c\}$ 且
+      $R^{\mathcal{M}} = \{(b, c), (a, b), (c, b)\}$。
+      \begin{solution}
+        只需检查所有使 $R(x, y)$ 为真的二元组;
+        对每个这样的 $y$, 给出一个见证 $z$ 即可。
+
+        需要检查的真元组只有
+        \[
+          (a, b), \qquad (b, c), \qquad (c, b).
+        \]
+        分別取见证:
+        \begin{align*}
+          &(x, y) = (a, b): && z = c, && R(b, c) \text{ 为真}; \\
+          &(x, y) = (b, c): && z = b, && R(c, b) \text{ 为真}; \\
+          &(x, y) = (c, b): && z = c, && R(b, c) \text{ 为真}.
+        \end{align*}
+        故
+        \[
+          \mathcal{M} \models \phi.
+        \]
+      \end{solution}
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}[一阶谓词逻辑的自然推理系统]
+  请使用自然推理规则证明:
+
+  \begin{enumerate}[(1)]
+    \setcounter{enumi}{2}
+    \item
+      \[
+        \exists x\, (P(x) \land Q(x)) \vdash \exists x\, P(x) \land \exists x\, Q(x)
+      \]
+  \end{enumerate}
+\end{problem}
+
+\begin{logicproof}{4}
+  \exists x\, (P(x) \land Q(x)) & premise \\
+  \begin{subproof}
+    x_0\; (\text{\blue{fresh}}),\; P(x_0) \land Q(x_0) & assumption \\
+    P(x_0) & $\land\elimleft$ 2 \\
+    Q(x_0) & $\land\elimright$ 2 \\
+    \exists x\, P(x) & $\exists$-intro 3 \\
+    \exists x\, Q(x) & $\exists$-intro 4 \\
+    \exists x\, P(x) \land \exists x\, Q(x) & $\land\intro$ 5, 6
+  \end{subproof}
+  \exists x\, P(x) \land \exists x\, Q(x) & $\exists$-elim 1, 2--7
+\end{logicproof}
 
 \end{frame}

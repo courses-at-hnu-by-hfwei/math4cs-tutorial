@@ -5,98 +5,88 @@
 \begin{problem}[命题逻辑的自然推理系统]
   请使用自然推理规则证明以下结论:
 
-  \begin{enumerate}[(1)]
-    \setcounter{enumi}{3}
-    \item
-      \[\vdash ((p \to q) \to q) \to ((q \to p) \to p)\]
-  \end{enumerate}
+  \medskip
+  (4)
+
+  \[
+    \vdash ((p \to q) \to q) \to ((q \to p) \to p)
+  \]
 \end{problem}
-\begin{slidesolution}
-  \begin{itemize}
-    \item 关键思路：采用间接证明。假设 $(p\to q)\to q$ 且 $q\to p$，再假设 $\lnot p$，由此构造矛盾，从而推出 $p$，进而得到 $(q\to p)\to p$，完成证明。
-    \pause
-    \item 步骤概览：
-      \begin{enumerate}
-        \item 假设 $(p\to q)\to q$ 与 $q\to p$。
-        \item 假设 $\lnot p$，由前提构造矛盾，从而推出 $p$。
-        \item 恢复蕴含得到 $(q\to p)\to p$，进而得到目标公式。
-      \end{enumerate}
-  \end{itemize}
-\end{slidesolution}
-      \handoutonly{
-      \begin{solution}
-      完整的自然演绎分步证明已收录于讲义；要点是使用排中律分情况讨论，并在必要时用归谬法构造矛盾，逐步应用 $\lor$、$\land$、$\lnot$ 的引入与消除规则得到结论。
-      \end{solution}
-      }
-      \pause
-\begin{enumerate}[(1)]
-  \setcounter{enumi}{2}
-  \item (德摩根律)
-    \[\lnot(\alpha \land \beta) \vdash (\lnot\alpha \lor \lnot\beta)\]
-    提示: 你可能需要多次用到排中律 $\frac{}{\alpha \lor \lnot\alpha}$。
-\end{enumerate}
 
 \begin{logicproof}{4}
-\lnot(\alpha \land \beta) & premise \\
-\alpha \lor \lnot\alpha & LEM \\
-\begin{subproof}
-\alpha & assumption \\
-\beta \lor \lnot\beta & LEM \\
-\begin{subproof}
-\beta & assumption \\
-\alpha \land \beta & $\land\intro$ 3, 5 \\
-\bot & $\lnot\elim$ 1, 6 \\
-\lnot\alpha \lor \lnot\beta & $\bot\elim$ 7
-\end{subproof}
-\begin{subproof}
-\lnot\beta & assumption \\
-\lnot\alpha \lor \lnot\beta & $\lor\introright$ 9
-\end{subproof}
-\lnot\alpha \lor \lnot\beta & $\lor\elim$ 4, 5--8, 9--10
-\end{subproof}
-\begin{subproof}
-\lnot\alpha & assumption \\
-\lnot\alpha \lor \lnot\beta & $\lor\introleft$ 12
-\end{subproof}
-\lnot\alpha \lor \lnot\beta & $\lor\elim$ 2, 3--11, 12--13
+  \lnot p & assumption \\
+  \begin{subproof}
+    p & assumption \\
+    \bot & $\lnot\elim$ 1, 2 \\
+    q & $\bot\elim$ 3
+  \end{subproof}
+  p \to q & $\to\intro$ 2--4 \\
+  (p \to q) \to q & assumption \\
+  q & $\to\elim$ 5, 6 \\
+  p & $\to\elim$ 1, 7 \\
+  \bot & $\lnot\elim$ 1, 8 \\
+  \lnot\lnot p & $\lnot\intro$ 1--9 \\
+  p & $\lnot\lnot\elim$ 10 \\
+  (q \to p) \to p & $\to\intro$ 2--11 \\
+  ((p \to q) \to q) \to ((q \to p) \to p) & $\to\intro$ 6--12
 \end{logicproof}
 
-\pause
+\medskip
+(3) (德摩根律)
+
+\[\lnot(\alpha \land \beta) \vdash (\lnot\alpha \lor \lnot\beta)\]
+
+提示: 你可能需要多次用到排中律 $\frac{}{\alpha \lor \lnot\alpha}$。
+
+\begin{logicproof}{4}
+  \lnot(\alpha \land \beta) & premise \\
+  \alpha \lor \lnot\alpha & LEM \\
+  \begin{subproof}
+    \alpha & assumption \\
+    \beta \lor \lnot\beta & LEM \\
+    \begin{subproof}
+      \beta & assumption \\
+      \alpha \land \beta & $\land\intro$ 3, 5 \\
+      \bot & $\lnot\elim$ 1, 6 \\
+      \lnot\alpha \lor \lnot\beta & $\bot\elim$ 7
+    \end{subproof}
+    \begin{subproof}
+      \lnot\beta & assumption \\
+      \lnot\alpha \lor \lnot\beta & $\lor\introright$ 9
+    \end{subproof}
+    \lnot\alpha \lor \lnot\beta & $\lor\elim$ 4, 5--8, 9--10
+  \end{subproof}
+  \begin{subproof}
+    \lnot\alpha & assumption \\
+    \lnot\alpha \lor \lnot\beta & $\lor\introleft$ 12
+  \end{subproof}
+  \lnot\alpha \lor \lnot\beta & $\lor\elim$ 2, 3--11, 12--13
+\end{logicproof}
+
 \begin{problem}[另一个命题逻辑推理系统]
-  考虑一个``希尔伯特''式的命题逻辑推理系统, 它包含三个公理 (A1)、(A2) 与 (A3):
-  \begin{enumerate}[label=(A\arabic*)]
-    \item \[\alpha \to (\beta \to \alpha)\]
-    \item \[ (\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma))\]
-    \item \[ (\lnot \beta \to \lnot \alpha) \to ((\lnot \beta \to \alpha) \to \beta)\]
+  考虑一个``希尔伯特''式的命题逻辑推理系统,
+  它包含三个公理 (A1)、(A2) 与 (A3):
+  \begin{enumerate}
+    \item[(A1)]
+      \[\alpha \to (\beta \to \alpha)\]
+    \item[(A2)]
+      \[ (\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma))\]
+    \item[(A3)]
+      \[ (\lnot \beta \to \lnot \alpha) \to ((\lnot \beta \to \alpha) \to \beta)\]
   \end{enumerate}
   除此之外, 它还包含一个推理规则 MP (分离规则).
 
   在该推理系统中, 公式 $\alpha \to \alpha$ 的一种证明方式请参见讲义。
 \end{problem}
 
-\begin{slidesolution}
-  \begin{itemize}
-    \item 目标：从公理 (A1)、(A2) 与 MP 推出 $\alpha\to\alpha$。
-    \pause
-    \item 关键实例化与推理：
-      \begin{enumerate}
-        \item 由 (A1) 令 $\beta=(\alpha\to\alpha)$ 得到 $\alpha\to((\alpha\to\alpha)\to\alpha)$。
-        \pause
-        \item 取 (A2) 中 $\beta=(\alpha\to\alpha)$ 且 $\gamma=\alpha$，得
-          $(\alpha\to((\alpha\to\alpha)\to\alpha))\to((\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha))$。
-        \pause
-        \item 用 MP 于第 1、2 步得到 $(\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha)$，再由 (A1) (令 $\beta=\alpha$) 得 $\alpha\to(\alpha\to\alpha)$，再次应用 MP 得到 $\alpha\to\alpha$。
-      \end{enumerate}
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
-\begin{enumerate}
-  \item A1 (取 $\beta=(\alpha\to\alpha)$): $\alpha\to((\alpha\to\alpha)\to\alpha)$.
-  \item A2 (取 $\beta=(\alpha\to\alpha),\,\gamma=\alpha$): $(\alpha\to((\alpha\to\alpha)\to\alpha))\to((\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha))$.
-  \item 由 1、2 及 MP 得 $(\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha)$。
-  \item A1 (取 $\beta=\alpha$): $\alpha\to(\alpha\to\alpha)$。
-  \item 由 3、4 及 MP 得 $\alpha\to\alpha$。
-\end{enumerate}
-}
+\begin{solution}
+  \begin{enumerate}
+    \item A1 (取 $\beta=(\alpha\to\alpha)$): $\alpha\to((\alpha\to\alpha)\to\alpha)$.
+    \item A2 (取 $\beta=(\alpha\to\alpha),\,\gamma=\alpha$): $(\alpha\to((\alpha\to\alpha)\to\alpha))\to((\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha))$.
+    \item 由 1、2 及 MP 得 $(\alpha\to(\alpha\to\alpha))\to(\alpha\to\alpha)$。
+    \item A1 (取 $\beta=\alpha$): $\alpha\to(\alpha\to\alpha)$。
+    \item 由 3、4 及 MP 得 $\alpha\to\alpha$。
+  \end{enumerate}
+\end{solution}
 
 \end{frame}

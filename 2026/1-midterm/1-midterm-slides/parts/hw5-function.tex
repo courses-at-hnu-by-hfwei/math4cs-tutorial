@@ -3,37 +3,65 @@
 \begin{frame}[allowframebreaks]{作业 5：函数}
 
 \begin{problem}[函数与等价关系]
-  设 $f:X\to Y$ 为满射, 定义 $R$ 为 $f(x)=f(y)$. 证明 $R$ 为等价关系, 并构造商映射 $h([x])=f(x)$ 并证明其为满射。
+  设 $f: X \to Y$ 是满射。
+  定义 $X$ 上的二元关系 $R$ 为 $(x, y) \in R$ 当且仅当 $f(x) = f(y)$。
+  请证明,
+  \begin{enumerate}[(1)]
+    \item $R$ 是 $X$ 上的等价关系。
+    \item 定义 $h \subseteq (X/R) \times Y$ 为 $h([x]_{R}) = f(x)$。
+      请证明, $h$ 是从商集 $X/R$ 到 $Y$ 的函数, 且是满射。
+  \end{enumerate}
 \end{problem}
 
-\pause
-\begin{slidesolution}
-  \begin{itemize}
-    \item $R$ 为等价关系：验证自反、对称、传递三性即可。
-    \pause
-    \item 构造商映射 $h([x])=f(x)$：需验证良定义性（若 $[x]=[y]$ 则 $f(x)=f(y)$），并说明 $h$ 为满射（对任意 $y\in Y$ 取 $x$ 使 $f(x)=y$）。
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
 \begin{proof}
-  验证自反、对称、传递即可得到等价关系. 对第二问, 需验证 $h$ 良定义且为满射, 参考讲义给出的证明步骤。
-\end{proof}
-}
+  \begin{enumerate}[(1)]
+    \item 下证 $R$ 是 $X$ 上的等价关系。只需证
+      \begin{itemize}
+        \item $R$ 是自反的。任取 $x \in X$,
 
-\pause
-\begin{problem}[反函数]
-  设 $f:A\to B$, $g:B\to A$, 证明 $(f\circ g=I_B \land g\circ f=I_A) \to g=f^{-1}$。
-\end{problem}
+          $f(x) = f(x) \implies (x, x) \in R$.
+        \item $R$ 是对称的。任取 $x_{1}, x_{2} \in X$,
+          \begin{align*}
+            & (x_{1}, x_{2}) \in R \\
+            \implies & f(x_{1}) = f(x_{2}) \\
+            \implies & f(x_{2}) = f(x_{1}) \\
+            \implies & (x_{2}, x_{1}) \in R.
+          \end{align*}
+        \item $R$ 是传递的。任取 $x_{1}, x_{2}, x_{3} \in X$,
+          \begin{align*}
+            & (x_{1}, x_{2}) \in R \land (x_{2}, x_{3}) \in R \\
+            \implies & f(x_{1}) = f(x_{2}) \land f(x_{2}) = f(x_{3}) \\
+            \implies & f(x_{1}) = f(x_{3}) \\
+            \implies & (x_{1}, x_{3}) \in R.
+          \end{align*}
+      \end{itemize}
+    \item 下证 $h: X/R \to Y$ 是函数, 且是满射。
 
-\begin{slidesolution}
-  \begin{itemize}
-    \item 若 $f\circ g=I_B$ 且 $g\circ f=I_A$，则 $f$ 与 $g$ 为互为逆映射：由 $f\circ g=I_B$ 可见 $f$ 为满射，结合 $g\circ f=I_A$ 可得 $f$ 为单射，故 $f$ 为双射，其逆即为 $g$。
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
-\begin{proof}
-  由复合等于恒等映射可证明 $f$ 为双射, 由此得到逆函数唯一且等于 $g$。
+      要证 $h$ 是函数, 只需证
+      \begin{itemize}
+        \item $\forall S \in X/R\; \exists y \in Y\; h(S) = y$。\\
+          设 $X/R = [x]_{R}$。取 $y = f(x)$ 即可。
+        \item $\forall S \in X/R\; \exists y_{1}, y_{2} \in Y\;
+          ((h(S) = y_{1} \land h(S) = y_{2}) \implies y_{1} = y_{2})$。\\
+          根据 $h$ 的定义,
+          \[
+            \exists x_{1} \in X\; ([x_{1}]_{R} = S \land f(x_{1}) = y_{1}),
+          \]
+          \[
+            \exists x_{2} \in X\; ([x_{2}]_{R} = S \land f(x_{2}) = y_{2}).
+          \]
+          因此,
+          \begin{align*}
+            & [x_{1}]_{R} = [x_{2}]_{R} \\
+            \implies & (x_{1}, x_{2}) \in R \\
+            \implies & f(x_{1}) = f(x_{2}) \\
+            \implies & y_{1} = y_{2}
+          \end{align*}
+      \end{itemize}
+      要证 $h$ 是满射, 只需证 $\forall y \in Y\; \exists S \in X/R\; h(S) = y$.\\
+      因为 $f$ 是满射, 对于任意 $y \in Y$, 存在 $x_{0}$, 使得 $f(x_{0}) = y$。
+      故, 取 $S = [x_{0}]_{R}$ 即可。
+  \end{enumerate}
 \end{proof}
-}
 
 \end{frame}

@@ -3,39 +3,73 @@
 \begin{frame}[allowframebreaks]{作业 6：序关系}
 
 \begin{problem}[集合划分与精化关系]
-  令 $Pt(X)$ 为 $X$ 的所有划分, 定义精化关系 $\alpha\le\beta \iff \forall A\in\alpha\; \exists B\in\beta\; A\subseteq B$. 证明上确界与下确界表达式。
+  令 $X \neq \emptyset$ 为任意集合。
+  令 $Pt(X)$ 表示 $X$ 的所有划分组成的集合。
+
+  如下定义 $Pt(X)$ 上的精化 (refinement) 关系 $\le$:
+  \[
+    \alpha \le \beta \iff
+      \forall A \in \alpha\; \exists B \in \beta\; A \subseteq B.
+  \]
+  在课堂上我们已经证明, ($Pt(X)$, $\le$) 是偏序集。
+
+  % (figure omitted: figs/set-partition-refinement)
+
+  \begin{enumerate}[(1)]
+    \item 请证明, 任意 $S \subseteq Pt(X)$ 都有上确界, 并给出上确界的表达式。
+    \item 请给出任意 $S \subseteq Pt(X)$ 的下确界的表达式。
+  \end{enumerate}
 \end{problem}
 
-\pause
-\begin{slidesolution}
-  \begin{itemize}
-    \item 上确界（sup）：把所有相关等价关系并后取等价关系生成的划分作为上确界。
-    \pause
-    \item 下确界（inf）：由各划分的块的非空交所形成的划分为下确界。
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
-\begin{solution}
-  上确界为把所有关系的等价关系并后的反身-对称-传递闭包对应的划分; 下确界为所有块的非空交的集合。详见讲义证明。
-\end{solution}
-}
+\begin{block}{Remark}
+  在精化偏序下, ``更小'' 意味着 ``更细''。因此下确界是公共细化, 上确界是公共粗化。
+  上下确界的构造分别对应于 "合并（合并为连通分支）" 与 "细化（取交）" 两种直观操作: 上确界通过在必要时合并块来获得最小的公共粗化,
+  下确界则通过取各划分块的交得到最大的公共细化。两者都可直接从精化关系的定义出发严格推导。
+\end{block}
 
-\pause
-\begin{problem}[拟序、等价关系、偏序]
-  定义 $x\sim y \iff x\preceq y \land y\preceq x$, 证明 $\sim$ 为等价关系, 并构造商集的偏序。
-\end{problem}
+\begin{proof}
+  \begin{enumerate}[(1)]
+    \item[上确界]
+      对每个 $\alpha\in S$ 定义其诱导的等价关系
+      \[x\equiv_{\alpha} y \iff \exists A\in\alpha\; (x\in A\land y\in A).\]
+      令
+      \[R\;=\;\bigcup_{\alpha\in S} \equiv_{\alpha},\]
+      并令 $\approx$ 为包含 $R$ 的最小等价关系（即 $R$ 的反身-对称-传递闭包）。记
+      \[P\;=\;X/\approx.\]
 
-\begin{slidesolution}
-  \begin{itemize}
-    \item 验证 $\sim$ 为等价关系：直接从定义 $x\sim y\iff x\preceq y\land y\preceq x$ 检查自反、对称、传递。
-    \pause
-    \item 构造商集的偏序：定义 $[x]\preceq'[y]\iff x\preceq y$，需验证良定义性（若 $[x]=[x']$ 与 $[y]=[y']$ 则关系不变）以及偏序三条公理。
-  \end{itemize}
-\end{slidesolution}
-\handoutonly{
-\begin{solution}
-  见讲义: 验证自反/对称/传递, 良定义性以及偏序三条公理。
-\end{solution}
-}
+      断言 $P=\sup(S)$. 证明如下。
+
+      (i) $P$ 是上界：任取 $\alpha\in S$, 若 $A\in\alpha$ 且 $x,y\in A$，则 $(x,y)\in R$, 因而 $x\approx y$;
+      故每个 $A\in\alpha$ 完全包含于某个 $\approx$-类， 即 $\alpha\le P$。
+
+      (ii) $P$ 是最小上界：若 $\beta$ 是任意上界 (即 $\forall\alpha\in S\;\alpha\le\beta$)，
+      则对任意 $\alpha\in S$ 有 $\equiv_{\alpha}\subseteq\equiv_{\beta}$，于是
+      $R\subseteq\equiv_{\beta}$. 因为 $\equiv_{\beta}$ 是等价关系, 它包含 $R$ 的等价闭包, 即
+      $\approx\subseteq\equiv_{\beta}$。因此每个 $\approx$-类都包含于某个 $\beta$-类, 也就是 $P\le\beta$。
+
+      由 (i),(ii) 得 $P$ 为最小上界。
+
+    \item[下确界]
+      令
+      \[\Pi=\Big\{\;\bigcap_{\alpha\in S}A_{\alpha}\;\Big|\;A_{\alpha}\in\alpha\ \forall\alpha\in S,\ \bigcap_{\alpha\in S}A_{\alpha}\neq\emptyset\;\Big\}.
+      \]
+
+      断言 $\Pi=\inf(S)$. 证明如下。
+
+      (i) $\Pi$ 为划分：对任意 $x\in X$，对每个 $\alpha\in S$ 取包含 $x$ 的块 $A_{\alpha}\in\alpha$，则
+      $x\in\bigcap_{\alpha}A_{\alpha}\in\Pi$，所以 $\Pi$ 覆盖 $X$。若
+      $C=\bigcap_{\alpha}A_{\alpha}$ 与 $D=\bigcap_{\alpha}B_{\alpha}$ 都属 $\Pi$ 且 $C\cap D\neq\emptyset$，
+      则任选 $x\in C\cap D$ 可得 $A_{\alpha}=B_{\alpha}$ 对所有 $\alpha$, 从而 $C=D$，故 $\Pi$ 的块两两不交。
+
+      (ii) $\Pi$ 为下界：显然对任意 $\alpha\in S$ 与任意 $C=\bigcap_{\gamma}A_{\gamma}\in\Pi$ 有 $C\subseteq A_{\alpha}$,
+      因此 $\Pi\le\alpha$ 对所有 $\alpha$ 成立。
+
+      (iii) $\Pi$ 为最大下界：若 $\gamma\in Pt(X)$ 也是下界 (即 $\forall\alpha\in S\;\gamma\le\alpha$)，
+      则任取 $G\in\gamma$ 对所有 $\alpha$ 存在 $A_{\alpha}\in\alpha$ 使得 $G\subseteq A_{\alpha}$，故有
+      $G\subseteq\bigcap_{\alpha}A_{\alpha}\in\Pi$，因此 $\gamma\le\Pi$。
+
+      由 (i),(ii),(iii) 得 $\Pi$ 为最大下界。
+\end{enumerate}
+\end{proof}
 
 \end{frame}

@@ -200,7 +200,8 @@
   {\end{exampleblock}}
 
 % Helper to include full/detailed material only in handout builds
-\newcommand{\handoutonly}[1]{\mode<handout>{#1}}
+% Previously restricted content to handout mode; include everywhere now
+\newcommand{\handoutonly}[1]{#1}
 \newenvironment{intention}
   {\par\smallskip\noindent\textbf{命题意图. }\ignorespaces}
   {\par\smallskip}
