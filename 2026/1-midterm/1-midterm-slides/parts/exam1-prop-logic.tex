@@ -1,0 +1,86 @@
+% exam1-prop-logic.tex (slides)
+
+\begin{frame}[allowframebreaks]{测验 1：命题逻辑}
+
+\begin{problem}[命题逻辑的自然推理系统]
+  请使用自然推理规则证明以下结论:
+
+  \begin{enumerate}[(1)]
+    \setcounter{enumi}{3}
+    \item
+      \[\vdash ((p \to q) \to q) \to ((q \to p) \to p)\]
+  \end{enumerate}
+\end{problem}
+
+\begin{logicproof}{4}
+\begin{subproof}
+(p \to q) \to q & assumption \\
+\begin{subproof}
+q \to p & assumption \\
+\begin{subproof}
+\lnot p & assumption \\
+\begin{subproof}
+p & assumption \\
+\bot & $\lnot\elim$ 3, 4 \\
+q & $\bot\elim$ 5
+\end{subproof}
+p \to q & $\to\intro$ 4--6 \\
+q & $\to\elim$ 1, 7 \\
+p & $\to\elim$ 2, 8 \\
+\bot & $\lnot\elim$ 3, 9
+\end{subproof}
+\lnot\lnot p & $\lnot\intro$ 3--10 \\
+p & $\lnot\lnot\elim$ 11
+\end{subproof}
+(q \to p) \to p & $\to\intro$ 2--12
+\end{subproof}
+((p \to q) \to q) \to ((q \to p) \to p) & $\to\intro$ 1--13
+\end{logicproof}
+
+\pause
+\begin{enumerate}[(1)]
+  \setcounter{enumi}{2}
+  \item (德摩根律)
+    \[\lnot(\alpha \land \beta) \vdash (\lnot\alpha \lor \lnot\beta)\]
+    提示: 你可能需要多次用到排中律 $\frac{}{\alpha \lor \lnot\alpha}$。
+\end{enumerate}
+
+\begin{logicproof}{4}
+\lnot(\alpha \land \beta) & premise \\
+\alpha \lor \lnot\alpha & LEM \\
+\begin{subproof}
+\alpha & assumption \\
+\beta \lor \lnot\beta & LEM \\
+\begin{subproof}
+\beta & assumption \\
+\alpha \land \beta & $\land\intro$ 3, 5 \\
+\bot & $\lnot\elim$ 1, 6 \\
+\lnot\alpha \lor \lnot\beta & $\bot\elim$ 7
+\end{subproof}
+\begin{subproof}
+\lnot\beta & assumption \\
+\lnot\alpha \lor \lnot\beta & $\lor\introright$ 9
+\end{subproof}
+\lnot\alpha \lor \lnot\beta & $\lor\elim$ 4, 5--8, 9--10
+\end{subproof}
+\begin{subproof}
+\lnot\alpha & assumption \\
+\lnot\alpha \lor \lnot\beta & $\lor\introleft$ 12
+\end{subproof}
+\lnot\alpha \lor \lnot\beta & $\lor\elim$ 2, 3--11, 12--13
+\end{logicproof}
+
+\pause
+\begin{problem}[另一个命题逻辑推理系统]
+  考虑一个``希尔伯特''式的命题逻辑推理系统, 它包含三个公理 (A1)、(A2) 与 (A3):
+  \begin{enumerate}[label=(A\arabic*)]
+    \item \[\alpha \to (\beta \to \alpha)\]
+    \item \[ (\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma))\]
+    \item \[ (\lnot \beta \to \lnot \alpha) \to ((\lnot \beta \to \alpha) \to \beta)\]
+  \end{enumerate}
+  除此之外, 它还包含一个推理规则 MP (分离规则).
+
+  在该推理系统中, 公式 $\alpha \to \alpha$ 的一种证明方式请参见讲义。
+\end{problem}
+
+\end{frame}

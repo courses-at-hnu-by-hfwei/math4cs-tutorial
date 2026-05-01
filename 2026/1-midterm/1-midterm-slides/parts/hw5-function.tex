@@ -1,0 +1,23 @@
+% hw5-function.tex (slides)
+
+\begin{frame}[allowframebreaks]{作业 5：函数}
+
+\begin{problem}[函数与等价关系]
+  设 $f:X\to Y$ 为满射, 定义 $R$ 为 $f(x)=f(y)$. 证明 $R$ 为等价关系, 并构造商映射 $h([x])=f(x)$ 并证明其为满射。
+\end{problem}
+
+\pause
+\begin{proof}
+  验证自反、对称、传递即可得到等价关系. 对第二问, 需验证 $h$ 良定义且为满射, 参考讲义给出的证明步骤。
+\end{proof}
+
+\pause
+\begin{problem}[反函数]
+  设 $f:A\to B$, $g:B\to A$, 证明 $(f\circ g=I_B \land g\circ f=I_A) \to g=f^{-1}$。
+\end{problem}
+
+\begin{proof}
+  由复合等于恒等映射可证明 $f$ 为双射, 由此得到逆函数唯一且等于 $g$。
+\end{proof}
+
+\end{frame}

@@ -1,0 +1,26 @@
+% exam2-predicate-logic.tex (slides)
+
+\begin{frame}[allowframebreaks]{测验 2：谓词逻辑}
+
+\begin{problem}[一阶谓词逻辑公式]
+  将 ``开集'' 的定义翻译成一阶谓词逻辑公式 $\phi$, 并写出 $\lnot\phi$。
+\end{problem}
+
+\pause
+\begin{solution}
+  取论域为 $\mathbb{R}^n$, 可写为
+  \[\phi \equiv \forall x\in U\; \exists \epsilon>0\; \forall y\in \mathbb{R}^n\; (d(y,x)<\epsilon \to y\in U).\]
+  因此
+  \[\lnot\phi \equiv \exists x\in U\; \forall \epsilon>0\; \exists y\in \mathbb{R}^n\; (d(y,x)<\epsilon \land y\notin U).\]
+\end{solution}
+
+\pause
+\begin{problem}[语法: 替换]
+  考察 $\phi \triangleq \forall x\,((\exists y\,P(x,y,z))\land (\forall z\,P(x,y,z)))$, 回答替换/自由-约束问题。
+\end{problem}
+
+\begin{solution}
+  请参见讲义: 标注自由/约束出现, 以及计算 $\phi[t/x]$, $\phi[t/y]$, $\phi[t/z]$ 等。
+\end{solution}
+
+\end{frame}

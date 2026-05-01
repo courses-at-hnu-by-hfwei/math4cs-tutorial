@@ -1,0 +1,60 @@
+% hw1-prop-logic.tex (slides)
+
+\begin{frame}[allowframebreaks]{作业 1：命题逻辑}
+
+\begin{problem}[命题逻辑的自然推理系统]
+  请使用自然推理规则证明以下结论:
+  \begin{enumerate}[(1)]
+    \setcounter{enumi}{4}
+    \item
+      
+      \[\vdash (\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma))\]
+  \end{enumerate}
+\end{problem}
+\pause
+
+\begin{logicproof}{3}
+\begin{subproof}
+\alpha \to (\beta \to \gamma) & assumption \\
+\begin{subproof}
+\alpha \to \beta & assumption \\
+\begin{subproof}
+\alpha & assumption \\
+\beta \to \gamma & $\to\elim$ 1, 3 \\
+\beta & $\to\elim$ 2, 3 \\
+\gamma & $\to\elim$ 4, 5
+\end{subproof}
+\alpha \to \gamma & $\to\intro$ 3--6
+\end{subproof}
+(\alpha \to \beta) \to (\alpha \to \gamma) & $\to\intro$ 2--7
+\end{subproof}
+(\alpha \to (\beta \to \gamma)) \to ((\alpha \to \beta) \to (\alpha \to \gamma)) & $\to\intro$ 1--8
+\end{logicproof}
+
+\pause
+\begin{enumerate}[(1)]
+  \setcounter{enumi}{5}
+  \item
+    \[\vdash (\lnot \beta \to \lnot \alpha) \to ((\lnot \beta \to \alpha) \to \beta)\]
+\end{enumerate}
+
+\begin{logicproof}{4}
+\begin{subproof}
+\lnot\beta \to \lnot\alpha & assumption \\
+\begin{subproof}
+\lnot\beta \to \alpha & assumption \\
+\begin{subproof}
+\lnot\beta & assumption \\
+\lnot\alpha & $\to\elim$ 1, 3 \\
+\alpha & $\to\elim$ 2, 3 \\
+\bot & $\lnot\elim$ 4, 5
+\end{subproof}
+\lnot\lnot\beta & $\lnot\intro$ 3--6 \\
+\beta & $\lnot\lnot\elim$ 7
+\end{subproof}
+(\lnot\beta \to \alpha) \to \beta & $\to\intro$ 2--8
+\end{subproof}
+(\lnot\beta \to \lnot\alpha) \to ((\lnot\beta \to \alpha) \to \beta) & $\to\intro$ 1--9
+\end{logicproof}
+
+\end{frame}

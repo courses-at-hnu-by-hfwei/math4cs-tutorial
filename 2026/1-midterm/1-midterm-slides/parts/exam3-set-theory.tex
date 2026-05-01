@@ -1,0 +1,23 @@
+% exam3-set-theory.tex (slides)
+
+\begin{frame}[allowframebreaks]{测验 3：集合论}
+
+\begin{problem}[余有限拓扑 (Cofinite Topology)]
+  设 $X$ 非空, 定义 $\mathcal{T}_{\mathrm{cof}}=\{\emptyset\}\cup\{U\subseteq X: X\setminus U\text{ 有限}\}$. 证明 $\mathcal{T}_{\mathrm{cof}}$ 为拓扑。
+\end{problem}
+
+\pause
+\begin{solution}
+  验证空集与全集在内, 任意并与有限交封闭; 详见讲义中的分步验证。
+\end{solution}
+
+\pause
+\begin{problem}[商拓扑 (Quotient Topology)]
+  设 $q:X\to X/\sim$, 定义 $\tau_{\sim}=\{U\subseteq X/\sim: q^{-1}(U)\in\tau\}$. 证明这是拓扑, 且 $q$ 连续与满射, 并证明商映射的唯一性与连续性。
+\end{problem}
+
+\begin{solution}
+  根据逆像与集合运算的交换性质证明拓扑公理; 构造 $\bar g([x])=g(x)$ 验证良定义、分解关系与连续性/唯一性。
+\end{solution}
+
+\end{frame}

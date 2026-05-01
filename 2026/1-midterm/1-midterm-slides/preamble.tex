@@ -190,3 +190,10 @@
 
 \newcommand{\val}{\textsf{val}}
 \newcommand{\capacity}{\textsf{cap}}
+% Problem/solution environments (beamer already defines common theorem environments)
+% use beamer's theorem/proof/problem environments if available
+\providecommand{\theproblem}{\arabic{problem}}
+% rely on beamer's built-in theorem/proof environments
+\newenvironment{intention}
+  {\par\smallskip\noindent\textbf{命题意图. }\ignorespaces}
+  {\par\smallskip}

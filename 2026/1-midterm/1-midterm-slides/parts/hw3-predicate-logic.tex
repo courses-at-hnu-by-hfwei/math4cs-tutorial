@@ -1,0 +1,20 @@
+% hw3-predicate-logic.tex (slides)
+
+\begin{frame}[allowframebreaks]{作业 3：谓词逻辑}
+
+\begin{problem}[一阶谓词逻辑: 形式化描述与推理]
+  请使用一阶谓词逻辑公式描述以下两个定义, 并说明两者之间是否有强弱之分：
+  (1) 点态连续; (2) 一致连续。
+\end{problem}
+
+\pause
+\begin{solution}
+  取论域为 $\mathbb{R}$，分别可形式化为
+  \begin{align*}
+    &\forall x\; \forall \epsilon>0\; \exists \delta>0\; \forall y\; (|x-y|<\delta \to |f(x)-f(y)|<\epsilon), \\
+    &\forall \epsilon>0\; \exists \delta>0\; \forall x,y\; (|x-y|<\delta \to |f(x)-f(y)|<\epsilon).
+  \end{align*}
+  从量词排列可知一致连续严格强于点态连续。
+\end{solution}
+
+\end{frame}
