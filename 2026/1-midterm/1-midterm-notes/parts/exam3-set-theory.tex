@@ -4,58 +4,50 @@
 \section{测验 3：集合论}
 
 \begin{problem}[余有限拓扑 (Cofinite Topology)]
-设 $X$ 是一个非空集合。定义
-\[
-  \mathcal{T}_{\mathrm{cof}} =
-  \set{\emptyset} \cup \set{U \subseteq X:
-    X \setminus U \text{ 是有限集}}\text{。}
-\]
-请证明: $\mathcal{T}_{\mathrm{cof}}$ 是 $X$ 上的一个拓扑。
+	设 $X$ 是一个非空集合。定义
+	\[
+		\mathcal{T}_{\mathrm{cof}} =
+		\set{\emptyset} \cup \set{U \subseteq X:
+			X \setminus U \text{ 是有限集}}\text{。}
+	\]
+	请证明: $\mathcal{T}_{\mathrm{cof}}$ 是 $X$ 上的一个拓扑。
 \end{problem}
 
 \begin{solution}
-	要证明 $\mathcal{T}_{\mathrm{cof}}$ 是拓扑，只需验证三条公理。
-
-	首先，
-	\[
-		\emptyset\in \mathcal{T}_{\mathrm{cof}},
-		\qquad
-		X\in \mathcal{T}_{\mathrm{cof}},
-	\]
-	因为
-	\[
-		X\setminus X=\emptyset
-	\]
-	是有限集。
-
-	其次，证明对任意并封闭。设 $\{U_i:i\in I\}\subseteq \mathcal{T}_{\mathrm{cof}}$。
-
-	若所有 $U_i=\emptyset$，则
-	\[
-		\bigcup_{i\in I}U_i=\emptyset\in \mathcal{T}_{\mathrm{cof}}.
-	\]
-
-	否则，至少存在一个 $i_0\in I$ 使得 $U_{i_0}\neq \emptyset$。对每个非空 $U_i$，都有 $X\setminus U_i$ 为有限集。于是
-	\[
-		X\setminus \bigcup_{i\in I}U_i
-		=
-		\bigcap_{i\in I}(X\setminus U_i).
-	\]
-	该交集包含于 $X\setminus U_{i_0}$，因此也是有限集。故
-	\[
-		\bigcup_{i\in I}U_i\in \mathcal{T}_{\mathrm{cof}}.
-	\]
-
-	最后，证明对有限交封闭。设 $U_1,\dots,U_n\in \mathcal{T}_{\mathrm{cof}}$。则
-	\[
-		X\setminus \bigcap_{k=1}^{n}U_k
-		=
-		\bigcup_{k=1}^{n}(X\setminus U_k).
-	\]
-	右边是有限个有限集的并，因此仍是有限集。故
-	\[
-		\bigcap_{k=1}^{n}U_k\in \mathcal{T}_{\mathrm{cof}}.
-	\]
+  \begin{itemize}
+    \item 根据定义，$\emptyset\in \mathcal{T}_{\mathrm{cof}}$。
+    \item 因为 $X \setminus X = \emptyset$ 是有限集,
+      所以 $X \in \mathcal{T}_{\mathrm{cof}}$。
+    \item 设 $\{U_i: i \in I\} \subseteq \mathcal{T}_{\mathrm{cof}}$。
+      如果 $\forall i \in I\; U_i = \emptyset$，则
+      \[
+        \bigcup_{i\in I}U_i=\emptyset
+          \in \mathcal{T}_{\mathrm{cof}}\text{。}
+      \]
+      否则，$\exists i \in I\; U_{i_0} \neq \emptyset$。
+      任取 $i_{0} \in I$ 使得 $U_{i_0} \neq \emptyset$,
+      则 $X \setminus U_{i_0}$ 是有限集。
+      因此，
+      \[
+        X \setminus \bigcup_{i\in I} U_i
+        =
+        \bigcap_{i\in I}(X\setminus U_i) \subseteq X\setminus U_{i_0}
+      \]
+      是有限集。故,
+      \[
+        \bigcup_{i\in I}U_i\in \mathcal{T}_{\mathrm{cof}}\text{。}
+      \]
+    \item 设 $U_1, \dots, U_n \in \mathcal{T}_{\mathrm{cof}}$, 则
+      \[
+        X \setminus \bigcap_{k=1}^{n} U_k
+        =
+        \bigcup_{k=1}^{n}(X\setminus U_k)\text{。}
+      \]
+      右边是有限个有限集的并，因此仍是有限集。故,
+      \[
+        \bigcap_{k=1}^{n}U_k\in \mathcal{T}_{\mathrm{cof}}\text{。}
+      \]
+  \end{itemize}
 \end{solution}
 %%%%%%%%%%%%%%%
 
@@ -116,77 +108,77 @@
 
 \begin{solution}
 	\begin{enumerate}[(1)]
-		\item 要证明 $\tau_{\sim}$ 是拓扑，只需验证三条公理。
-
+		\item 验证拓扑的定义。
 		  \begin{itemize}
 				\item
 					\[
 						q^{-1}(\emptyset)=\emptyset\in \tau,
 						\qquad
-						q^{-1}(X/{\sim})=X\in \tau.
+						q^{-1}(X/{\sim})=X\in \tau\text{。}
 					\]
 					所以
 					\[
-						\emptyset,\ X/{\sim}\in \tau_{\sim}.
+						\emptyset,\ X/{\sim}\in \tau_{\sim}\text{。}
 					\]
-				\item $\{U_i:i\in I\}\subseteq \tau_{\sim}$，则对每个 $i$ 都有 $q^{-1}(U_i)\in \tau$。并且
+				\item 若 $\{U_i: i \in I\} \subseteq \tau_{\sim}$,
+				  则对每个 $i$ 都有 $q^{-1}(U_i) \in \tau$, 并且
 					\[
 						q^{-1}\!\left(\bigcup_{i\in I}U_i\right)
 						=
-						\bigcup_{i\in I}q^{-1}(U_i) \in \tau.
+						\bigcup_{i\in I}q^{-1}(U_i) \in \tau\text{。}
 					\]
 					故
 					\[
-						\bigcup_{i\in I}U_i\in \tau_{\sim}.
+						\bigcup_{i\in I}U_i\in \tau_{\sim}\text{。}
 					\]
 				\item 若 $U_1,\dots,U_n\in \tau_{\sim}$，则
 					\[
 						q^{-1}\!\left(\bigcap_{k=1}^{n}U_k\right)
 						=
-						\bigcap_{k=1}^{n}q^{-1}(U_k) \in \tau.
+						\bigcap_{k=1}^{n}q^{-1}(U_k) \in \tau\text{。}
 					\]
 					故
 					\[
-						\bigcap_{k=1}^{n}U_k\in \tau_{\sim}.
+						\bigcap_{k=1}^{n}U_k\in \tau_{\sim}\text{。}
 					\]
 			\end{itemize}
 		\item 先证满射。任取 $X/{\sim}$ 中的元素，它是某个等价类 $[x]$，而
 			\[
-				q(x)=[x].
+				q(x) = [x]\text{。}
 			\]
 			所以 $q$ 是满射。
 
 			再证连续。任取 $U\in \tau_{\sim}$。由定义，
 			\[
-				q^{-1}(U)\in \tau.
+				q^{-1}(U)\in \tau\text{。}
 			\]
 			根据连续性的定义，$q$ 连续。
 		\item 先定义
 			\[
-				\bar g([x])=g(x).
+				\bar g([x])=g(x)\text{。}
 			\]
 			\begin{itemize}
 				\item 证明其{\bf 良定义}。
 				  若 $[x]=[y]$，则 $x\sim y$，从而 $g(x)=g(y)$。故 $\bar g$ 良定义。
 				\item 验证分解关系。
-				  对任意 $x\in X$，
+				  对任意 $x\in X$,
 					\[
 						(\bar g\circ q)(x)=\bar g([x])=g(x),
 					\]
 					故
 					\[
-						g=\bar g\circ q.
+						g=\bar g\circ q\text{。}
 					\]
 				\item 证明唯一性。
 				  若还有映射 $h:X/{\sim}\to Y$ 满足 $g=h\circ q$，则对任意 $[x]\in X/{\sim}$，
 					\[
-						h([x])=h(q(x))=g(x)=\bar g([x]).
+						h([x])=h(q(x))=g(x)=\bar g([x])\text{。}
 					\]
 					因此 $h = \bar g$。
 				\item 证明连续性。
 				  任取 $V\in \sigma$。由于 $g$ 连续，
 					\[
-						g^{-1}(V)\in \tau.
+						g^{-1}(V)\in \tau\text{。}
 					\]
 					即，
 					\[
@@ -195,11 +187,11 @@
 						(\bar g\circ q)^{-1}(V)
 						=
 						q^{-1}(\bar g^{-1}(V))
-						\in \tau.
+						\in \tau\text{。}
 					\]
 					由 $\tau_{\sim}$ 的定义，得到
 					\[
-						\bar g^{-1}(V)\in \tau_{\sim}.
+						\bar g^{-1}(V)\in \tau_{\sim}\text{。}
 					\]
 					所以 $\bar g$ 连续。
 			\end{itemize}
